@@ -8,6 +8,7 @@ dotenv.config();
  * Get Environment Variables
  */
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+const basePath = process.env.BASE_PATH || "";
 
 /**
  * Import all routes
@@ -31,8 +32,8 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * Setup the routes
  */
-app.use("/hello", helloRoutes);
-app.use("/", rootRoutes);
+app.use(`${basePath}/hello`, helloRoutes);
+app.use(`${basePath}/`, rootRoutes);
 
 app.listen(port, () => {
     console.log(`Website now availble on http://localhost:${port}/`);

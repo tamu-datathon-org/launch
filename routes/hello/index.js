@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
     }
 
     // if the name is valid redirect the request to /hello/<name> so that the page will be rendered
-    return res.redirect(`/hello/${encodeURIComponent(name)}`);
+    return res.redirect(`${process.env.BASE_PATH || ""}/hello/${encodeURIComponent(name)}`);
 });
 
 /**
