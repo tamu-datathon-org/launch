@@ -28,3 +28,5 @@ TAMU Datathon's smart application system
     $ npm start # for production mode
     $ npm run dev # for dev mode, need to run this to go through galaxy proxy
     ```
+
+6. Load the page on http://localhost:4000/apply
