@@ -11,7 +11,9 @@
                 id="email"
                 placeholder="Email Address"
                 required="true"
+                aria-labelledby="email-help"
             />
+            <span class="d-none" id="email-help">Enter your email address here</span>
         </div>
         <div class="form-group">
             <label for="firstName">First Name</label>
@@ -21,7 +23,9 @@
                 id="firstName"
                 placeholder="First Name"
                 required="true"
+                aria-labelledby="fname-help"
             />
+            <span class="d-none" id="fname-help">Enter your first name here</span>
         </div>
         <div class="form-group">
             <label for="lastName">Last Name</label>
@@ -31,7 +35,9 @@
                 id="lastName"
                 placeholder="Last Name"
                 required="true"
+                aria-labelledby="lname-help"
             />
+            <span class="d-none" id="lname-help">Enter your last name here</span>
         </div>
     </div>
     <div class="container p-3 my-3 bg-dark text-white">
@@ -41,8 +47,10 @@
                 type="url"
                 class="form-control"
                 id="gitHub"
-                placeholder="Link to GitHub Profile"
+                placeholder="Link to your GitHub Profile"
+                aria-labelledby="github-help"
             />
+            <span class="d-none" id="github-help">Enter your Github url here</span>
         </div>
         <div class="form-group">
             <label for="linkedIn">LinkedIn</label>
@@ -50,8 +58,10 @@
                 type="url"
                 class="form-control"
                 id="linkedIn"
-                placeholder="Link to LinkedIn Profile"
+                placeholder="Link to your LinkedIn Profile"
+                aria-labelledby="linkedin-help"
             />
+            <span class="d-none" id="linkedin-help">Enter your LinkedIn url here</span>
         </div>
         <div class="form-group">
             <label for="kaggle">Kaggle</label>
@@ -59,8 +69,10 @@
                 type="url"
                 class="form-control"
                 id="kaggle"
-                placeholder="Link to Kaggle Profile"
+                placeholder="Link to your Kaggle Profile"
+                aria-labelledby="kaggle-help"
             />
+            <span class="d-none" id="kaggle-help">Enter your Kaggle url here</span>
         </div>
         <div class="form-group">
             <label for="devpost">Devpost</label>
@@ -68,8 +80,10 @@
                 type="url"
                 class="form-control"
                 id="devpost"
-                placeholder="Link to Devpost Profile"
+                placeholder="Link to your Devpost Profile"
+                aria-labelledby="devpost-help"
             />
+            <span class="d-none" id="devpost-help">Enter your Devpost url here</span>
         </div>
         <div class="form-group">
             <label for="website">Website</label>
@@ -77,8 +91,10 @@
                 type="url"
                 class="form-control"
                 id="website"
-                placeholder="Link to Personal Website"
+                placeholder="Link to your Personal Website"
+                aria-labelledby="personal-page-help"
             />
+            <span class="d-none" id="personal-page-help">Enter your personal webpage here</span>
         </div>
     </div>
     <div class="container p-3 my-3 bg-secondary text-white">
@@ -88,7 +104,9 @@
             class="form-control"
             name="resume"
             accept="application/pdf"
+            aria-labelledby="resume-help"
         />
+        <span class="d-none" id="resume-help">Upload your resume here</span>
     </div>
     <div class="container p-3 my-3 bg-dark text-white">
         <div class="form-group">
@@ -99,7 +117,11 @@
                 id="school"
                 placeholder="School"
                 required="true"
+                aria-labelledby="form-school-help"
             />
+            <span class="d-none" id="form-school-help"
+                >What school do you currently attend?</span
+            >
         </div>
         <div class="form-group">
             <label for="classification">Classification</label>
@@ -109,7 +131,11 @@
                 id="classification"
                 placeholder="Classification"
                 required="true"
+                aria-labelledby="form-classification-help"
             />
+            <span class="d-none" id="form-classification-help"
+                >What is your classification?</span
+            >
         </div>
         <div class="form-group">
             <label for="graduation">Graduation Date</label>
@@ -118,8 +144,11 @@
                 class="form-control"
                 id="graduation"
                 placeholder="Graduation Date"
-                required="true"
+                aria-labelledby="form-graduation-help"
             />
+            <span class="d-none" id="form-graduation-help"
+                >When will you graduate?</span
+            >
         </div>
         <div class="form-group">
             <label for="majors">Majors</label>
@@ -129,7 +158,11 @@
                 id="majors"
                 placeholder="Majors"
                 required="true"
+                aria-labelledby="form-major-help"
             />
+            <span class="d-none" id="form-major-help"
+                >What is your major or majors?</span
+            >
         </div>
         <div class="form-group">
             <label for="minors">Minors</label>
@@ -138,18 +171,22 @@
                 class="form-control"
                 id="minors"
                 placeholder="Minors"
-                required="true"
+                aria-labelledby="form-minor-help"
             />
+            <span class="d-none" id="form-minor-help">What is your minor?</span>
         </div>
+
         <div class="form-group">
             <label for="firstGen">First Generation Student</label>
             <input
                 type="text"
                 class="form-control"
                 id="firstGen"
-                placeholder="First Generation Student"
                 required="true"
+                placeholder="type Yes or No"
+                aria-labelledby="form-firstgen-help"
             />
+            <span class="d-none" id="form-firstgen-help">Are you a first generation student?</span>
         </div>
     </div>
     <div class="container p-3 my-3 bg-secondary text-white">
@@ -161,7 +198,9 @@
                 id="gender"
                 placeholder="Gender"
                 required="true"
+                aria-labelledby="form-gender-help"
             />
+            <span class="d-none" id="form-gender-help">What is your gender?</span>
         </div>
         <div class="form-group">
             <label for="race">Race</label>
@@ -181,7 +220,9 @@
                 id="age"
                 placeholder="Age"
                 required="true"
+                aria-labelledby="form-age-help"
             />
+            <span class="d-none" id="form-age-help">How old are you?</span>
         </div>
     </div>
     <div class="container p-3 my-3 bg-dark text-white">
@@ -193,7 +234,11 @@
                 id="numHack"
                 placeholder="Number of Hackathons Attended"
                 required="true"
+                aria-labelledby="form-num-hacks-help"
             />
+            <span class="d-none" id="form-num-hacks-help"
+                >How many hackathons have you attended?</span
+            >
         </div>
         <div class="form-group">
             <label for="dsExp">DS/ML Experience</label>
@@ -203,7 +248,12 @@
                 id="dsExp"
                 placeholder="DS/ML Experience"
                 required="true"
+                aria-labelledby="form-ds-ml-experience-help"
             />
+            <span class="d-none" id="form-ds-ml-experience-help"
+                >What experience do you have in Data Science and Machine
+                Learning?</span
+            >
         </div>
         <div class="form-group">
             <label for="techExp">Tech Experience</label>
@@ -213,7 +263,11 @@
                 id="techExp"
                 placeholder="Tech Experience"
                 required="true"
+                aria-labelledby="form-tech-experience-help"
             />
+            <span class="d-none" id="form-tech-experience-help"
+                >What technology experience do you have?</span
+            >
         </div>
     </div>
     <div class="container p-3 my-3 bg-secondary text-white">
