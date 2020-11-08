@@ -182,34 +182,35 @@
         </div>
         <div class="form-group">
             <label for="majors">Majors</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
-                id="majors"
-                placeholder="Majors"
+                id="major-select"
                 required="true"
+                multiple="multiple"
                 name="majors"
-                aria-labelledby="form-major-help"
-            />
-            <span class="d-none" id="form-major-help"
-                >What is your major or majors?</span
             >
+            <% for (const major of majors.results) { %>
+                <option value="<%= major.id %>"><%= major.text %></option>
+            <% } %>    
+            </select>
         </div>
         <div class="form-group">
             <label for="minors">Minors</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
-                id="minors"
+                id="minor-select"
+                required="true"
                 name="minors"
-                placeholder="Minors"
-                aria-labelledby="form-minor-help"
-            />
-            <span class="d-none" id="form-minor-help">What is your minor?</span>
+                multiple="multiple"
+            >
+            <% for (const major of majors.results) { %>
+                <option value="<%= major.id %>"><%= major.text %></option>
+            <% } %>   
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="firstGen">First Generation Student</label>
+            <label for="firstGen">Are you a First Generation Student?</label>
             <input
                 type="text"
                 class="form-control"
@@ -313,3 +314,9 @@
         <button type="submit" class="btn btn-success">Submit Application</button>
     </div>
 </form>
+
+<style>
+    .select2-selection__choice__display{
+    color: #000000!important;
+}
+</style>
