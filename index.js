@@ -29,7 +29,6 @@ const app = express();
  */
 app.use(cookieParser());
 app.set("view engine", "ejs");
-app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -38,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
  */
 app.use(`${basePath}/hello`, checkIfLoggedIn(), helloRoutes);
 app.use(`${basePath}/`, checkIfLoggedIn(), rootRoutes);
+app.use(`${basePath}`,express.static("public"));
 
 app.listen(port, () => {
     console.log(`Website now availble on http://localhost:${port}/`);
