@@ -1,5 +1,16 @@
-<div class="container p-3 my-3 bg-dark text-white">
+<div class="container p-3 my-3">
     <h1 class="text-center">TAMU Datathon 2021 Application</h1>
+
+</div>
+<div class="container card">
+    <div class="card-content p-3 text-center">
+        
+        <h4>Your Current Application Status:</h4>
+        <h3><strong><%= currentApplication.status || "NOT SUBMITTED" %></strong></h2>
+        <p>
+            Fill out the form below and hit the green button at the bottom to save your application. <br>You can check this page later to edit your application or see if you got in!
+        </p>
+    </div>
 </div>
 <form>
     <div class="container p-3 my-3 bg-secondary text-white">
@@ -8,6 +19,8 @@
             <input
                 type="text"
                 class="form-control"
+                name="email"
+                value="<%= currentApplication.email || '' %>"
                 id="email"
                 placeholder="Email Address"
                 required="true"
@@ -19,8 +32,10 @@
             <label for="firstName">First Name</label>
             <input
                 type="text"
+                name="firstName"
                 class="form-control"
                 id="firstName"
+                value="<%= currentApplication.firstName || '' %>"
                 placeholder="First Name"
                 required="true"
                 aria-labelledby="fname-help"
@@ -33,6 +48,8 @@
                 type="text"
                 class="form-control"
                 id="lastName"
+                name="lastName"
+                value="<%= currentApplication.lastName || '' %>"
                 placeholder="Last Name"
                 required="true"
                 aria-labelledby="lname-help"
@@ -47,6 +64,8 @@
                 type="url"
                 class="form-control"
                 id="gitHub"
+                value="<%= currentApplication.githubURL || '' %>"
+                name="githubURL"
                 placeholder="Link to your GitHub Profile"
                 aria-labelledby="github-help"
             />
@@ -58,6 +77,8 @@
                 type="url"
                 class="form-control"
                 id="linkedIn"
+                name="linkedInURL"
+                value="<%= currentApplication.linkedInURL || '' %>"
                 placeholder="Link to your LinkedIn Profile"
                 aria-labelledby="linkedin-help"
             />
@@ -69,6 +90,8 @@
                 type="url"
                 class="form-control"
                 id="kaggle"
+                name="kaggleURL"
+                value="<%= currentApplication.kaggleURL || '' %>"
                 placeholder="Link to your Kaggle Profile"
                 aria-labelledby="kaggle-help"
             />
@@ -80,6 +103,8 @@
                 type="url"
                 class="form-control"
                 id="devpost"
+                value="<%= currentApplication.devpostURL || '' %>"
+                name="devpostURL"
                 placeholder="Link to your Devpost Profile"
                 aria-labelledby="devpost-help"
             />
@@ -91,6 +116,8 @@
                 type="url"
                 class="form-control"
                 id="website"
+                name="websiteURL"
+                value="<%= currentApplication.devpostURL || '' %>"
                 placeholder="Link to your Personal Website"
                 aria-labelledby="personal-page-help"
             />
@@ -117,6 +144,7 @@
                 id="school"
                 placeholder="School"
                 required="true"
+                name="school"
                 aria-labelledby="form-school-help"
             />
             <span class="d-none" id="form-school-help"
@@ -131,6 +159,7 @@
                 id="classification"
                 placeholder="Classification"
                 required="true"
+                name="classification"
                 aria-labelledby="form-classification-help"
             />
             <span class="d-none" id="form-classification-help"
@@ -144,6 +173,7 @@
                 class="form-control"
                 id="graduation"
                 placeholder="Graduation Date"
+                name="graduationDate"
                 aria-labelledby="form-graduation-help"
             />
             <span class="d-none" id="form-graduation-help"
@@ -158,6 +188,7 @@
                 id="majors"
                 placeholder="Majors"
                 required="true"
+                name="majors"
                 aria-labelledby="form-major-help"
             />
             <span class="d-none" id="form-major-help"
@@ -170,6 +201,7 @@
                 type="text"
                 class="form-control"
                 id="minors"
+                name="minors"
                 placeholder="Minors"
                 aria-labelledby="form-minor-help"
             />
@@ -183,6 +215,7 @@
                 class="form-control"
                 id="firstGen"
                 required="true"
+                name="isFirstGenerationStudent"
                 placeholder="type Yes or No"
                 aria-labelledby="form-firstgen-help"
             />
@@ -198,6 +231,7 @@
                 id="gender"
                 placeholder="Gender"
                 required="true"
+                name="gender"
                 aria-labelledby="form-gender-help"
             />
             <span class="d-none" id="form-gender-help">What is your gender?</span>
@@ -208,6 +242,7 @@
                 type="text"
                 class="form-control"
                 id="race"
+                name="race"
                 placeholder="Race"
                 required="true"
             />
@@ -218,6 +253,7 @@
                 type="number"
                 class="form-control"
                 id="age"
+                name="age"
                 placeholder="Age"
                 required="true"
                 aria-labelledby="form-age-help"
@@ -232,6 +268,7 @@
                 type="number"
                 class="form-control"
                 id="numHack"
+                name="numHackAttended"
                 placeholder="Number of Hackathons Attended"
                 required="true"
                 aria-labelledby="form-num-hacks-help"
@@ -246,6 +283,7 @@
                 type="text"
                 class="form-control"
                 id="dsExp"
+                name="dataExperience"
                 placeholder="DS/ML Experience"
                 required="true"
                 aria-labelledby="form-ds-ml-experience-help"
@@ -261,6 +299,7 @@
                 type="text"
                 class="form-control"
                 id="techExp"
+                name="techExperience"
                 placeholder="Tech Experience"
                 required="true"
                 aria-labelledby="form-tech-experience-help"
@@ -271,6 +310,6 @@
         </div>
     </div>
     <div class="container p-3 my-3 bg-secondary text-white">
-        <button type="submit" class="btn">Submit Application</button>
+        <button type="submit" class="btn btn-success">Submit Application</button>
     </div>
 </form>

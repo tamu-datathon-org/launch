@@ -12,6 +12,14 @@ dotenv.config();
  */
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 const basePath = process.env.BASE_PATH || "";
+const admin = require('firebase-admin');
+
+// Initialize fireabse (only has to be done once in the main js file)
+// https://firebase.google.com/docs/admin/setup/
+admin.initializeApp({
+    credential: admin.credential.applicationDefault(), // use default GOOGLE_APPLICATION_CREDENTIAL
+    databaseURL: "https://project-f271e.firebaseio.com/"
+});
 
 /**
  * Import all routes
