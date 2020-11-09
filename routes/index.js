@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const applicationService = require('../services/ApplicationService');
 const majors = require('../public/college-majors.json');
+const colleges = require('../public/colleges.json');
 
 /**
  * Serve home page
@@ -13,6 +14,7 @@ router.get("/", async (req, res) => {
     return res.render("index", {
         applicationExists: currentApplication != undefined && currentApplication != null,
         majors,
+        colleges,
         justSubmitted: false,
         currentApplication: { 
             email: user.email,
@@ -52,6 +54,7 @@ router.post("/", async (req, res) => {
         applicationExists: currentApplication != undefined && currentApplication != null,
         justSubmitted: true,
         majors,
+        colleges,
         currentApplication: { 
             email: user.email,
             firstName: user.firstName,
