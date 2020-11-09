@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<%- include ("./partials/head") %>
+
+<body>
+    <div class="container p-3 my-3 bg-dark text-white">
+        <div class="row align-items-center">
+            <div class="col-md-auto">
+                <h1>Submitted Applications</h1>
+                <p>Count = 1</p>
+            </div>
+            <div class="col-md-auto">
+                <button type="button" class="btn btn-large">View Starred Applicant(s)</button>
+            </div>
+            <div class="col-md-auto">
+                <button type="button" class="btn btn-small">Modify Deadlines</button>
+            </div>
+            <div class="col-md-auto">
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Admit Applicant(s)</a>
+                        <a class="dropdown-item" href="#">Waitlist Applicant(s)</a>
+                        <a class="dropdown-item" href="#">Reject Applicant(s)</a>
+                        <a class="dropdown-item" href="#">Export Data</a>
+                        <a class="dropdown-item" href="#">View Details</a>
+                        <a class="dropdown-item" href="#">Star Applicant(s)</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container p-3 my-3 bg-secondary text-white">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="selectAll">
+                            <label class="custom-control-label" for="selectAll"></label>
+                        </div>
+                    </th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">School</th>
+                    <th scope="col">Classification</th>
+                    <th scope="col">Computed Skill</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="select1">
+                            <label class="custom-control-label" for="select1"></label>
+                        </div>
+                    </td>
+                    <td>TAMU Datathon</td>
+                    <td>connect@tamudatathon.com</td>
+                    <td>Texas A&M</td>
+                    <td>Sophomore</td>
+                    <td>Advanced</td>
+                    <td>Accepted</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">TAMU Datathon</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><b>School:</b></p>
+                    <p>Texas A&M</p>
+                    <p><b>Resume:</b></p>
+                    <p><a href="tamudatathon.com">Link to Resume</a></p>
+                    <p><b>Computed Skill:</b></p>
+                    <p>Advanced</p>
+                    <p><b>Most Used Languages in GitHub Projects:</b></p>
+                    <p>Python</p>
+                    <p><b>Pinned Repositories:</b></p>
+                    <p><a href="https://github.com/tamu-datathon-org">tamu-datathon-org</a></p>
+                    <p><b>Work Experience from LinkedIn:</b></p>
+                    <p>TAMU Datathon 2019, TAMU Datathon 2020</p>
+                    <p><b>Kaggle Competitions Attended:</b></p>
+                    <p>foo, bar</p>
+                    <p><b>Past TAMU Datathon Activity:</b></p>
+                    <p>Attended TD 2020, Won City Search Tool</p>
+                    <p><b>LinkedIn URL:</b></p>
+                    <p><a href="linkedin.com/company/tamudatathon">Link to LinkedIn</a></p>
+                    <p><b>Kaggle URL:</b></p>
+                    <p><a href="tamudatathon.com">Link to Kaggle</a></p>
+                    <p><b>GitHub URL:</b></p>
+                    <p><a href="https://github.com/tamu-datathon-org">Link to GitHub</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <%- include ("./partials/scripts") %>
+    <script>
+        $('tr').on('dblclick', function () {
+            $('#addModal').modal('show');
+        });
+    </script>
+</body>
+
+</html>

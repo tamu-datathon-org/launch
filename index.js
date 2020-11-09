@@ -26,6 +26,7 @@ admin.initializeApp({
  */
 const rootRoutes = require("./routes/index");
 const helloRoutes = require("./routes/hello/index");
+const adminRoutes = require("./routes/admin/index");
 
 /**
  * Create Express server.
@@ -44,6 +45,7 @@ app.use(express.urlencoded({ extended: true }));
  * Setup the routes
  */
 app.use(`${basePath}/hello`, checkIfLoggedIn(), helloRoutes);
+app.use(`${basePath}/admin`, checkIfLoggedIn(), adminRoutes);
 app.use(`${basePath}/`, checkIfLoggedIn(), rootRoutes);
 app.use(`${basePath}`,express.static("public"));
 
