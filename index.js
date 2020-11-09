@@ -12,6 +12,14 @@ dotenv.config();
  */
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 const basePath = process.env.BASE_PATH || "";
+const admin = require('firebase-admin');
+
+// Initialize fireabse (only has to be done once in the main js file)
+// https://firebase.google.com/docs/admin/setup/
+admin.initializeApp({
+    credential: admin.credential.applicationDefault(), // use default GOOGLE_APPLICATION_CREDENTIAL
+    databaseURL: "https://project-f271e.firebaseio.com/"
+});
 
 /**
  * Import all routes
@@ -29,7 +37,6 @@ const app = express();
  */
 app.use(cookieParser());
 app.set("view engine", "ejs");
-app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -38,6 +45,7 @@ app.use(express.urlencoded({ extended: true }));
  */
 app.use(`${basePath}/hello`, checkIfLoggedIn(), helloRoutes);
 app.use(`${basePath}/`, checkIfLoggedIn(), rootRoutes);
+app.use(`${basePath}`,express.static("public"));
 
 app.listen(port, () => {
     console.log(`Website now availble on http://localhost:${port}/`);
