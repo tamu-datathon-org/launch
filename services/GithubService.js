@@ -35,7 +35,7 @@ const getStatsCardLink = (username) => {
         throw new Error('"username" is not defined even though it should be');
     }
 
-    return `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}`;
+    return `https://github-readme-stats.vercel.app/api?username=${username}`;
 };
 
 /**

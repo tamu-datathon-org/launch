@@ -1,5 +1,3 @@
-const $ = ($) ? $ : null;
-
 /**
  * Function that returns the link for top languages from username
  * @param {string} username Github handle
@@ -24,7 +22,7 @@ const getTopLanguagesData = async (username) => {
     if (result) {
         return result;
     } else {
-        throw new Error("Invalid data response - fetching top languages data");
+        throw new Error('Invalid data response - fetching top languages data');
     }
 };
 
@@ -37,7 +35,7 @@ const getStatsCardLink = (username) => {
         throw new Error('"username" is not defined even though it should be');
     }
 
-    return `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}`;
+    return `https://github-readme-stats.vercel.app/api?username=${username}`;
 };
 
 /**
@@ -52,7 +50,7 @@ const getStatsCardData = async (username) => {
     if (result) {
         return result;
     } else {
-        throw new Error("Invalid data response - fetching Stats data");
+        throw new Error('Invalid data response - fetching Stats data');
     }
 };
 
@@ -62,8 +60,8 @@ $("#gitHub").focusout(async () => {
     const GithubURL = new URL(inputPath);
 
     if (inputPath.includes("github.com") && GithubURL) {
-        // inject html into the page
-        //getStatsCardData
+        // if the input for github link is valid
+
         const pathArray = GithubURL.pathname.split('/').filter(e => e.length > 0);
         if (pathArray.length == 0) {
             throw new Error(`Invalid path submitted to form: ${inputPath}`);
@@ -74,7 +72,8 @@ $("#gitHub").focusout(async () => {
         const MainLanguagesResult = getTopLanguagesData(username);
 
         const data = await Promise.all([StatsResult, MainLanguagesResult]);
-        console.log(data);
 
+        console.log(data[0]);
+        console.log(data[1]);
     }
 });

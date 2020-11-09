@@ -103,10 +103,13 @@
                     <p><b>Kaggle URL:</b></p>
                     <p><a href="tamudatathon.com">Link to Kaggle</a></p>
                     <p><b>GitHub URL:</b></p>
-                    <p><a href="https://github.com/tamu-datathon-org">Link to GitHub</a></p>
+                    <p><a id="github-link-modal" href="https://github.com/tamu-datathon-org">Link to GitHub</a></p>
                     <p><b>GitHub Statistics:</b></p>
                     <p>
-                        <%- include ("./partials/github_preview") %>
+                        <img id="github-languages-card" src="#" width="100%" />
+                    </p>
+                    <p>
+                        <img id="github-stats-card" src="#" width="100%" />
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -121,6 +124,26 @@
     <script>
         $('tr').on('dblclick', function () {
             $('#addModal').modal('show');
+            const githubLink = $('#github-link-modal').attr('href');
+            // use function from ./partial/scripts (application.js)
+
+            const GithubURL = new URL(githubLink);
+
+            // parse username from URL
+            const pathArray = GithubURL.pathname.split('/').filter(e => e.length > 0);
+            if (pathArray.length == 0) {
+                throw new Error(`Invalid path submitted to form: ${inputPath}`);
+            }
+            const username = pathArray[0];
+
+            // get links from username
+            const StatsLink        = getStatsCardLink(username);
+            const TopLanguagesLink = getTopLanguagesLink(username);
+
+            // set both img "attr" src values
+            $('#github-stats-card').attr('src', StatsLink);
+            $('#github-languages-card').attr('src', TopLanguagesLink);
+
         });
     </script>
 </body>
