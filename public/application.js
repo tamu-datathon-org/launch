@@ -1,3 +1,5 @@
+const $ = ($) ? $ : null;
+
 /**
  * Function that returns the link for top languages from username
  * @param {string} username Github handle
@@ -68,8 +70,11 @@ $("#gitHub").focusout(async () => {
         }
         const username = pathArray[0];
         
-        const StatsResult = getStatsCardData(username);
-        // console.log(StatsResult);
-        // 
+        const StatsResult         = getStatsCardData(username);
+        const MainLanguagesResult = getTopLanguagesData(username);
+
+        const data = await Promise.all([StatsResult, MainLanguagesResult]);
+        console.log(data);
+
     }
 });
