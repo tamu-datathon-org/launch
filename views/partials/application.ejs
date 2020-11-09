@@ -1,6 +1,15 @@
 <div class="container p-3 my-3">
     <h1 class="text-center">TAMU Datathon 2021 Application</h1>
-
+</div>
+<div class="container">
+    <% if(justSubmitted) { %>
+        <div class="alert row alert-success alert-dismissible fade show" role="alert">
+            <strong>Application Saved!</strong>&nbsp;Come back here later to check the status of your application.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
 </div>
 <div class="container card">
     <div class="card-content p-3 text-center">
@@ -12,7 +21,7 @@
         </p>
     </div>
 </div>
-<form>
+<form method="POST">
     <div class="container p-3 my-3 bg-secondary text-white">
         <div class="form-group">
             <label for="email">Email Address</label>
@@ -117,7 +126,7 @@
                 class="form-control"
                 id="website"
                 name="websiteURL"
-                value="<%= currentApplication.devpostURL || '' %>"
+                value="<%= currentApplication.websiteURL || '' %>"
                 placeholder="Link to your Personal Website"
                 aria-labelledby="personal-page-help"
             />
@@ -143,6 +152,7 @@
                 class="form-control"
                 id="school"
                 placeholder="School"
+                value="<%= currentApplication.school || '' %>"
                 required="true"
                 name="school"
                 aria-labelledby="form-school-help"
@@ -158,6 +168,7 @@
                 class="form-control"
                 id="classification"
                 placeholder="Classification"
+                value="<%= currentApplication.classification || '' %>"
                 required="true"
                 name="classification"
                 aria-labelledby="form-classification-help"
@@ -173,6 +184,7 @@
                 class="form-control"
                 id="graduation"
                 placeholder="Graduation Date"
+                value="<%= currentApplication.graduationDate || '' %>"
                 name="graduationDate"
                 aria-labelledby="form-graduation-help"
             />
@@ -186,6 +198,7 @@
                 class="form-control"
                 id="major-select"
                 required="true"
+                value="<%= currentApplication.majors || '' %>"
                 multiple="multiple"
                 name="majors"
             >
@@ -200,6 +213,7 @@
                 class="form-control"
                 id="minor-select"
                 required="true"
+                value="<%= currentApplication.minors || '' %>"
                 name="minors"
                 multiple="multiple"
             >
@@ -217,6 +231,7 @@
                 id="firstGen"
                 required="true"
                 name="isFirstGenerationStudent"
+                value="<%= currentApplication.isFirstGenerationStudent || '' %>"
                 placeholder="type Yes or No"
                 aria-labelledby="form-firstgen-help"
             />
@@ -232,6 +247,7 @@
                 id="gender"
                 placeholder="Gender"
                 required="true"
+                value="<%= currentApplication.gender || '' %>"
                 name="gender"
                 aria-labelledby="form-gender-help"
             />
@@ -243,6 +259,7 @@
                 type="text"
                 class="form-control"
                 id="race"
+                value="<%= currentApplication.race || '' %>"
                 name="race"
                 placeholder="Race"
                 required="true"
@@ -255,6 +272,7 @@
                 class="form-control"
                 id="age"
                 name="age"
+                value="<%= currentApplication.age || '' %>"
                 placeholder="Age"
                 required="true"
                 aria-labelledby="form-age-help"
@@ -270,6 +288,7 @@
                 class="form-control"
                 id="numHack"
                 name="numHackAttended"
+                value="<%= currentApplication.numHackAttended || '' %>"
                 placeholder="Number of Hackathons Attended"
                 required="true"
                 aria-labelledby="form-num-hacks-help"
@@ -286,6 +305,7 @@
                 id="dsExp"
                 name="dataExperience"
                 placeholder="DS/ML Experience"
+                value="<%= currentApplication.dataExperience || '' %>"
                 required="true"
                 aria-labelledby="form-ds-ml-experience-help"
             />
@@ -302,6 +322,7 @@
                 id="techExp"
                 name="techExperience"
                 placeholder="Tech Experience"
+                value="<%= currentApplication.techExperience || '' %>"
                 required="true"
                 aria-labelledby="form-tech-experience-help"
             />
@@ -311,7 +332,13 @@
         </div>
     </div>
     <div class="container p-3 my-3 bg-secondary text-white">
-        <button type="submit" class="btn btn-success">Submit Application</button>
+        <button type="submit" class="btn btn-success">
+            <% if(!applicationExists) {%>
+                Submit New Application
+            <% } else { %>
+                Save Changes
+            <% } %>
+        </button>
     </div>
 </form>
 
