@@ -1,63 +1,51 @@
+const fetch = require('node-fetch');
+
 /**
- * Function that returns the link for top languages from username
+ * Function that returns the link for a github user
  * @param {string} username Github handle
  */
-const getTopLanguagesLink = (username) => {
+const getUserDataLink = (username) => {
     if (!username) {
         throw new Error('"username" is not defined even though it should be');
     }
 
-    return `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}`;
+    return `https://api.github.com/users/${username}`;
 };
 
 /**
- * Function that returns DATA for top languages (HTML)
+ * Function that returns the data for a github user
  * @param {string} username Github handle
  */
-const getTopLanguagesData = async (username) => {
-    const dataURL = getTopLanguagesLink(username);
-
-    const result = await fetch(dataURL);
-
-    if (result) {
-        return result;
-    } else {
-        throw new Error('Invalid data response - fetching top languages data');
-    }
+const getUserData = async (username) => {
+    const url = getUserDataLink(username);
+    const result = await fetch(url);
+    return result.json();
 };
 
 /**
- * Function that returns link for stats information for repositories
+ * Function that returns the link for a user's repositories
  * @param {string} username Github handle
  */
-const getStatsCardLink = (username) => {
+const getUserReposLink = (username) => {
     if (!username) {
         throw new Error('"username" is not defined even though it should be');
     }
 
-    return `https://github-readme-stats.vercel.app/api?username=${username}`;
+    return `https://api.github.com/users/${username}/repos`;
 };
 
 /**
- * Function that returns DATA for top languages (HTML)
+ * Function that returns an array with a user's repositories
  * @param {string} username Github handle
  */
-const getStatsCardData = async (username) => {
-    const dataURL = getStatsCardLink(username);
-
-    const result = await fetch(dataURL);
-
-    if (result) {
-        return result;
-    } else {
-        throw new Error('Invalid data response - fetching Stats data');
-    }
+const getUserRepos = async (username) => {
+    const url = getUserReposLink(username);
+    const result = await fetch(url);
+    return result.json();
 };
 
 // export the functions
 module.exports = {
-    getTopLanguagesLink,
-    getTopLanguagesData,
-    getStatsCardLink,
-    getStatsCardData
+    getUserData,
+    getUserRepos
 };
