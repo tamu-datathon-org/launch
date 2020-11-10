@@ -111,6 +111,10 @@
                     <p>
                         <img id="github-stats-card" src="#" width="100%" />
                     </p>
+                    <p><b>GitHub Repositories (top five):</b></p>
+                    <p>
+                        <ul id="github-repos-list"></ul>
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -121,31 +125,6 @@
 
     <%- include ("./partials/scripts") %>
 
-    <script>
-        $('tr').on('dblclick', function () {
-            $('#addModal').modal('show');
-            const githubLink = $('#github-link-modal').attr('href');
-            // use function from ./partial/scripts (application.js)
-
-            const GithubURL = new URL(githubLink);
-
-            // parse username from URL
-            const pathArray = GithubURL.pathname.split('/').filter(e => e.length > 0);
-            if (pathArray.length == 0) {
-                throw new Error(`Invalid path submitted to form: ${inputPath}`);
-            }
-            const username = pathArray[0];
-
-            // get links from username
-            const StatsLink        = getStatsCardLink(username);
-            const TopLanguagesLink = getTopLanguagesLink(username);
-
-            // set both img "attr" src values
-            $('#github-stats-card').attr('src', StatsLink);
-            $('#github-languages-card').attr('src', TopLanguagesLink);
-
-        });
-    </script>
 </body>
 
 </html>
