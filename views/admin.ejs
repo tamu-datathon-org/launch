@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="container p-3 my-3 bg-light text-white rounded">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">
@@ -52,8 +52,8 @@
                 </tr>
             </thead>
             <tbody>
-                <% data.forEach((app) => { %>
-                    <tr>
+                <% data.forEach((app, i) => { %>
+                    <tr data-toggle="modal" data-id="<%= i + 1 %>" data-target="#addModal">
                         <td>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="select1">
@@ -113,14 +113,23 @@
         </div>
     </div>
 
-
-
     <%- include ("./partials/scripts") %>
+
     <script>
-        $('tr').on('dblclick', function () {
-            $('#addModal').modal('show');
+        $(function() {
+            $('#addModal').on('show.bs.modal', (event) => {
+                const tableRow = $(event.relatedTarget);
+                const rowIndex = tableRow.attr('data-id');
+                
+                // get all data from tableRow & inject into the modal
+                // TODO: add hidden fields to table like github link
+                //       for rendering in the modal
+
+                console.log("You clicked on index:", rowIndex);
+            });
         });
     </script>
+
 </body>
 
 </html>
