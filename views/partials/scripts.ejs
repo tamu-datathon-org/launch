@@ -34,3 +34,77 @@
         });
     });
 </script>
+
+<script>
+    $(function() {
+        const $resumeControl = $("#resumeControl");
+
+        if ($resumeControl.length <= 0) {
+            return;
+        }
+
+        const resumeId = $resumeControl.attr("value");
+        const writeUrl = $resumeControl.attr("write-url");
+        const userAuthId = $resumeControl.attr("auth-id");
+
+        const fileInputSelect = document.createElement("input");
+        fileInputSelect.type = "file";
+        fileInputSelect.accept = "application/pdf";
+        fileInputSelect.hidden = "hidden";
+ 
+        const uploadButton = document.createElement("button");
+        uploadButton.innerHTML = resumeId ? "Select a different File (PDF)" : "Select a File (PDF)";
+        uploadButton.classList.add("btn");
+        uploadButton.classList.add("btn-primary");
+        uploadButton.classList.add("d-block");
+        uploadButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            fileInputSelect.click();
+        })
+        
+
+        const statusMessage = document.createElement("p");
+        statusMessage.classList.add("text-muted");
+        statusMessage.classList.add("mt-3");
+        if (resumeId) {
+            statusMessage.innerHTML = `Currently selected file: <a href="/apply/resume/${resumeId}" target="_blank">View File</a>. Remember to Save Changes.`;
+        }
+
+        fileInputSelect.addEventListener('input', async (e) => {
+            if (e.target.files.length < 1) {
+                return;
+            }
+
+            const file = e.target.files[0];
+
+            var blob = file.slice(
+                0,
+                file.size,
+                "application/pdf"
+            );
+            const newResumeFile = new File([blob], `${userAuthId}.pdf`, {
+                type: "application/pdf",
+            });
+
+            uploadButton.disabled = "disabled";
+            uploadButton.innerHTML = "Uploading";
+
+            await fetch(writeUrl, {
+                method: "PUT",
+                body: newResumeFile,
+                headers: {
+                    "Content-Type": "application/pdf"
+                }
+            })
+
+            uploadButton.disabled = "";
+            uploadButton.innerHTML = "Select a different File (PDF)";
+
+            $resumeControl.val(userAuthId);
+            statusMessage.innerHTML = `Currently selected file: <a href="/apply/resume/${userAuthId}" target="_blank">View File</a>. Remember to Save Changes.`;
+        })
+
+        $resumeControl.after(statusMessage);
+        $resumeControl.after(uploadButton);
+    });
+</script>
