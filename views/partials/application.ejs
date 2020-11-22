@@ -152,20 +152,19 @@
     <div class="container p-3 my-3">
         <h3>Education</h3>
         <div class="form-group">
-            <label for="school">School</label>
-            <input
-                type="text"
+            <label for="colleges">School</label>
+            <select
                 class="form-control"
-                id="school"
-                placeholder="School"
-                value="<%= currentApplication.school || '' %>"
+                id="college-select"
                 required="true"
-                name="school"
-                aria-labelledby="form-school-help"
-            />
-            <span class="d-none" id="form-school-help"
-                >What school do you currently attend?</span
+                value="<%= currentApplication.school || '' %>"
+                name="colleges"
             >
+            <option></option>
+            <% for (const college of colleges.results) { %>
+                <option value="<%= college.id %>"><%= college.text %></option>
+            <% } %>    
+            </select>
         </div>
         <div class="form-group">
             <label for="classification">Classification</label>
@@ -245,21 +244,24 @@
         <h3>Demographics</h3>
         <div class="form-group">
             <label for="gender">Gender</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
-                id="gender"
-                placeholder="Gender"
-                required="true"
+                id="sex-select"
                 value="<%= currentApplication.gender || '' %>"
                 name="gender"
-                aria-labelledby="form-gender-help"
-            />
+            >
+            <option></option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Prefer to not Answer</option>
+            <option></option>
+        </select>
             <span class="d-none" id="form-gender-help">What is your gender?</span>
         </div>
         <div class="form-group">
             <label for="race">Ethnicity</label>
             <select class="form-control" id="eth-select">
+                <option></option>
                 <option>Hispanic or Latino</option>
                 <option>Not Hispanic or Latino</option>
               </select>
