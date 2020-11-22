@@ -3,6 +3,7 @@ const router = express.Router();
 const applicationService = require('../services/ApplicationService');
 const majors = require('../public/college-majors.json');
 const colleges = require('../public/colleges.json');
+const ResumeService = require("../services/ResumeService");
 
 /**
  * Serve home page
@@ -11,15 +12,22 @@ const colleges = require('../public/colleges.json');
 router.get("/", async (req, res) => {
     const user = req.user;
     const currentApplication = await applicationService.getApplicationForUser(user.authId);
+
+    const resumeWriteUrl = await ResumeService.getSignedURLForResume(user.authId, "putObject");
+
+    console.log({ resumeWriteUrl})
+
     return res.render("index", {
         applicationExists: currentApplication != undefined && currentApplication != null,
         majors,
         colleges,
         justSubmitted: false,
+        resumeWriteUrl: resumeWriteUrl || "",
         currentApplication: { 
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
+            userAuthId: user.authId,
             ...currentApplication
         }
     });
@@ -48,6 +56,8 @@ router.post("/", async (req, res) => {
 
     // get new current application
     const currentApplication =  await applicationService.getApplicationForUser(user.authId);
+    
+    const resumeWriteUrl = await ResumeService.getSignedURLForResume(user.authId, "putObject");
 
     // render page
     return res.render("index", {
@@ -55,10 +65,12 @@ router.post("/", async (req, res) => {
         justSubmitted: true,
         majors,
         colleges,
+        resumeWriteUrl: resumeWriteUrl || "",
         currentApplication: { 
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
+            userAuthId: user.authId,
             ...currentApplication
         }
     });

@@ -137,14 +137,10 @@
             />
             <span class="d-none" id="personal-page-help">Enter your personal webpage here</span>
         </div>
-        <label for="resume">Resume</label>
-        <input
-            type="file"
-            class="form-control"
-            name="resume"
-            accept="application/pdf"
-            aria-labelledby="resume-help"
-        />
+        <div class="form-group">
+            <label for="resume">Resume</label>
+            <input type="text" id="resumeControl" hidden name="resumeId" value="<%= currentApplication.resumeId || '' %>" write-url="<%= resumeWriteUrl || '' %>" auth-id="<%= currentApplication.userAuthId || '' %>"/>
+        </div>
     </div>
     <div class="container">
         <hr/>
@@ -231,17 +227,17 @@
         <div class="form-group">
             <label for="firstGen">Are you a First Generation Student?</label>
             <div class="radio">
-                <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                  Yes
-                </label>
-                <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                    No
-                  </label>
-              </div>
-
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__Yes" value="option1" checked>
+                    <label class="form-check-label" for="isFirstGenerationStudent__Yes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__No" value="option2">
+                    <label class="form-check-label" for="isFirstGenerationStudent__No">No</label>
+                </div>
+            </div>
         </div>
+    </div>
     </div>
     <div class="container">
         <hr/>
