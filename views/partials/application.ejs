@@ -154,11 +154,11 @@
                 id="college-select"
                 required="true"
                 value="<%= currentApplication.school || '' %>"
-                name="colleges"
+                name="school"
             >
             <option></option>
             <% for (const college of colleges.results) { %>
-                <option value="<%= college.id %>"><%= college.text %></option>
+                <option value="<%= college.id %>"  <%= currentApplication.school == (''+college.id) ? 'selected' : '' %> ><%= college.text %></option>
             <% } %>    
             </select>
         </div>
@@ -198,13 +198,12 @@
             <select
                 class="form-control"
                 id="major-select"
-                required="true"
                 value="<%= currentApplication.majors || '' %>"
                 multiple="multiple"
                 name="majors"
             >
             <% for (const major of majors.results) { %>
-                <option value="<%= major.id %>"><%= major.text %></option>
+                <option value="<%= major.id %>" <%= currentApplication.majors && currentApplication.majors.includes('' + major.id) ? 'selected' : '' %> ><%= major.text %></option>
             <% } %>    
             </select>
         </div>
@@ -212,14 +211,12 @@
             <label for="minors">Minors</label>
             <select
                 class="form-control"
-                id="minor-select"
-                required="true"
-                value="<%= currentApplication.minors || '' %>"
+                id="minor-select"                value="<%= currentApplication.minors || '' %>"
                 name="minors"
                 multiple="multiple"
             >
             <% for (const major of majors.results) { %>
-                <option value="<%= major.id %>"><%= major.text %></option>
+                <option value="<%= major.id %>" <%= currentApplication.minors && currentApplication.minors.includes('' + major.id) ? 'selected' : '' %> ><%= major.text %></option>
             <% } %>   
             </select>
         </div>
@@ -228,11 +225,11 @@
             <label for="firstGen">Are you a First Generation Student?</label>
             <div class="radio">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__Yes" value="option1" checked>
+                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__Yes" required value="true" <%= currentApplication.isFirstGenerationStudent == 'true' ? 'checked' : '' %>>
                     <label class="form-check-label" for="isFirstGenerationStudent__Yes">Yes</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__No" value="option2">
+                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__No" required value="false" <%= currentApplication.isFirstGenerationStudent == 'false' ? 'checked' : '' %>>
                     <label class="form-check-label" for="isFirstGenerationStudent__No">No</label>
                 </div>
             </div>

@@ -15,8 +15,6 @@ router.get("/", async (req, res) => {
 
     const resumeWriteUrl = await ResumeService.getSignedURLForResume(user.authId, "putObject");
 
-    console.log({ resumeWriteUrl})
-
     return res.render("index", {
         applicationExists: currentApplication != undefined && currentApplication != null,
         majors,
@@ -39,6 +37,14 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
     const user = req.user;
+
+    // make sure majors and minor is an array
+    if (req.body.majors && !Array.isArray(req.body.majors)) {
+        req.body.majors = [req.body.majors]
+    }
+    if (req.body.minors && !Array.isArray(req.body.minors)) {
+        req.body.minors = [req.body.minors]
+    }
 
     // check if existing app exists
     const lastApp =  await applicationService.getApplicationForUser(user.authId);
