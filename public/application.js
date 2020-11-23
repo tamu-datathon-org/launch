@@ -146,6 +146,40 @@ $('#applications-table').on('dbl-click-row.bs.table', function (e, arg1, arg2) {
             $("#modal-github-url").attr("href", app.githubURL || "#");
             $("#modal-github-url").text(app.githubURL || "-none-");
 
+            if (app.devpostData) {
+                for (const proj of app.devpostData.projects) {
+                    $("#devpost-projects-list").prepend(
+                        `<li>
+                            <a href="${proj.projectLink}" target="_blank">${proj.projectTitle}<small>&nbsp;(${proj.numLikes} likes)</small></a>
+                        </li>`
+                    );
+                }
+                for (const hack of app.devpostData.hackathons) {
+                    $("#devpost-hackathons-list").prepend(
+                        `<li>
+                            <a href="${hack.hackathonLink}" target="_blank">${hack.hackathonTitle}</a>
+                        </li>`
+                    );
+                }
+            }
+
+            if (app.devpostData) {
+                for (const proj of app.devpostData.projects) {
+                    $("#devpost-projects-list").prepend(
+                        `<li>
+                            <a href="${proj.projectLink}" target="_blank">${proj.projectTitle}<small>&nbsp;(${proj.numLikes} likes)</small></a>
+                        </li>`
+                    );
+                }
+                for (const hack of app.devpostData.hackathons) {
+                    $("#devpost-hackathons-list").prepend(
+                        `<li>
+                            <a href="${hack.hackathonLink}" target="_blank">${hack.hackathonTitle}</a>
+                        </li>`
+                    );
+                }
+            }
+
             if (app.githubURL) {
                 $('#github-stats-card').show();
                 $('#github-languages-card').show();
