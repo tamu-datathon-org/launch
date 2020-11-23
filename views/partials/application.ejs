@@ -324,11 +324,11 @@
             >
                 <span class="d-none" id="form-race-help">What is your race?</span>
                 <option></option>
-                <option <%=currentApplication.race.includes('American Indian or Alaska Native') ? 'selected' : '' %> >American Indian or Alaska Native</option>
-                <option <%=currentApplication.race.includes('Asian') ? 'selected' : '' %> >Asian</option>
-                <option <%=currentApplication.race.includes('Black or African American') ? 'selected' : '' %> >Black or African American</option>
-                <option <%=currentApplication.race.includes('Native Hawaiian or Other Pacific Islander') ? 'selected' : '' %> >Native Hawaiian or Other Pacific Islander</option>
-                <option <%=currentApplication.race.includes('White') ? 'selected' : '' %> >White</option>
+                <option <%=currentApplication.race && currentApplication.race.includes('American Indian or Alaska Native') ? 'selected' : '' %> >American Indian or Alaska Native</option>
+                <option <%=currentApplication.race && currentApplication.race.includes('Asian') ? 'selected' : '' %> >Asian</option>
+                <option <%=currentApplication.race && currentApplication.race.includes('Black or African American') ? 'selected' : '' %> >Black or African American</option>
+                <option <%=currentApplication.race && currentApplication.race.includes('Native Hawaiian or Other Pacific Islander') ? 'selected' : '' %> >Native Hawaiian or Other Pacific Islander</option>
+                <option <%=currentApplication.race && currentApplication.race.includes('White') ? 'selected' : '' %> >White</option>
               </select>
         </div>
         <div class="form-group">
