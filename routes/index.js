@@ -47,6 +47,9 @@ router.post("/", async (req, res) => {
     if (req.body.minors && !Array.isArray(req.body.minors)) {
         req.body.minors = [req.body.minors]
     }
+    if (req.body.techExperience && !Array.isArray(req.body.techExperience)) {
+        req.body.techExperience = [req.body.techExperience]
+    }
 
     // check if existing app exists
     const lastApp =  await applicationService.getApplicationForUser(user.authId);
