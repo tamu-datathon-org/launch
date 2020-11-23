@@ -75,6 +75,7 @@
         const resumeId = $resumeControl.attr("value");
         const writeUrl = $resumeControl.attr("write-url");
         const userAuthId = $resumeControl.attr("auth-id");
+        const isDisabled = $resumeControl.prop("disabled");
 
         const fileInputSelect = document.createElement("input");
         fileInputSelect.type = "file";
@@ -90,6 +91,8 @@
             e.preventDefault();
             fileInputSelect.click();
         })
+
+        uploadButton.disabled = isDisabled;
         
 
         const statusMessage = document.createElement("p");

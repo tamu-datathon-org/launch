@@ -1,3 +1,4 @@
+<% const currentDate = new Date(); %>
 <div class="container p-3 my-3">
     <h1 class="text-center">TAMU Datathon 2021 Application</h1>
 </div>
@@ -10,15 +11,23 @@
             </button>
         </div>
     <% } %>
+    <% if(currentDate.getTime() > currentDeadline.getTime()) { %>
+        <div class="alert row alert-primary fade show" role="alert">
+            <strong>The deadline has passed!</strong>&nbsp; You can no longer edit or submit your application. But this page will have your application status.
+        </div>
+    <% } %>
 </div>
 <div class="container card">
     <div class="card-content p-3 text-center">
         
         <h4>Your Current Application Status:</h4>
         <h3><strong><%= currentApplication.status || "NOT SUBMITTED" %></strong></h2>
+        <% if(currentDate.getTime() < currentDeadline.getTime()) { %>
         <p>
             Fill out the form below and hit the green button at the bottom to save your application. <br>You can check this page later to edit your application or see if you got in!
         </p>
+        <% } %>
+        <p>Application Deadline: <%= currentDeadline.toLocaleString() %> Central</p>
     </div>
 </div>
 <form method="POST">
@@ -34,6 +43,7 @@
                 id="email"
                 placeholder="Email Address"
                 required="true"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="email-help"
             />
             <span class="d-none" id="email-help">Enter your email address here</span>
@@ -48,6 +58,7 @@
                 value="<%= currentApplication.firstName || '' %>"
                 placeholder="First Name"
                 required="true"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="fname-help"
             />
             <span class="d-none" id="fname-help">Enter your first name here</span>
@@ -62,6 +73,7 @@
                 value="<%= currentApplication.lastName || '' %>"
                 placeholder="Last Name"
                 required="true"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="lname-help"
             />
             <span class="d-none" id="lname-help">Enter your last name here</span>
@@ -82,6 +94,7 @@
                 value="<%= currentApplication.githubURL || '' %>"
                 name="githubURL"
                 placeholder="Link to your GitHub Profile"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="github-help"
             />
             <span class="d-none" id="github-help">Enter your Github url here</span>
@@ -95,6 +108,7 @@
                 name="linkedInURL"
                 value="<%= currentApplication.linkedInURL || '' %>"
                 placeholder="Link to your LinkedIn Profile"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="linkedin-help"
             />
             <span class="d-none" id="linkedin-help">Enter your LinkedIn url here</span>
@@ -108,6 +122,7 @@
                 name="kaggleURL"
                 value="<%= currentApplication.kaggleURL || '' %>"
                 placeholder="Link to your Kaggle Profile"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="kaggle-help"
             />
             <span class="d-none" id="kaggle-help">Enter your Kaggle url here</span>
@@ -121,6 +136,7 @@
                 value="<%= currentApplication.devpostURL || '' %>"
                 name="devpostURL"
                 placeholder="Link to your Devpost Profile"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="devpost-help"
             />
             <span class="d-none" id="devpost-help">Enter your Devpost url here</span>
@@ -134,6 +150,7 @@
                 name="websiteURL"
                 value="<%= currentApplication.websiteURL || '' %>"
                 placeholder="Link to your Personal Website"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="personal-page-help"
             />
             <span class="d-none" id="personal-page-help">Enter your personal webpage here</span>
@@ -147,6 +164,7 @@
                 value="<%= currentApplication.resumeId || '' %>"
                 write-url="<%= resumeWriteUrl || '' %>"
                 auth-id="<%= currentApplication.userAuthId || '' %>"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="upload-resume-help"
             />
             <span class="d-none" id="upload-resume-help">Upload your resume here</span>
@@ -166,6 +184,7 @@
                 value="<%= currentApplication.school || '' %>"
                 name="school"
                 required="true"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="form-school-help"
                 >
                 <span class="d-none" id="form-school-help">What school do you attend?</span>
@@ -183,6 +202,7 @@
                 value="<%= currentApplication.classification || '' %>"
                 required="true"
                 name="classification"
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
                 aria-labelledby="form-classification-help"
             >
                 <span class="d-none" id="form-classification-help">What is your classification?</span>
@@ -205,6 +225,8 @@
                 value="<%= currentApplication.graduationDate || '' %>"
                 name="graduationDate"
                 aria-labelledby="form-graduation-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             >
                 <span class="d-none" id="form-graduation-help">When will you graduate?</span>
                 <option></option>
@@ -231,6 +253,8 @@
                 multiple="multiple"
                 name="majors"
                 aria-labelledby="major-select-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             >
                 <span class="d-none" id="major-select-help">What are you majoring in?</span>
                 <% for (const major of majors.results) { %>
@@ -247,6 +271,8 @@
                 name="minors"
                 multiple="multiple"
                 aria-labelledby="minor-select-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             >
                 <span class="d-none" id="minor-select-help">What are you minoring in?</span>
                 <% for (const minor of majors.results) { %>
@@ -259,11 +285,11 @@
             <label for="firstGen">Are you a First Generation Student?</label>
             <div class="radio">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__Yes" required value="true" <%= currentApplication.isFirstGenerationStudent == 'true' ? 'checked' : '' %>>
+                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__Yes" required value="true" <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %> <%= currentApplication.isFirstGenerationStudent == 'true' ? 'checked' : '' %>>
                     <label class="form-check-label" for="isFirstGenerationStudent__Yes">Yes</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__No" required value="false" <%= currentApplication.isFirstGenerationStudent == 'false' ? 'checked' : '' %>>
+                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__No" required value="false" <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %> <%= currentApplication.isFirstGenerationStudent == 'false' ? 'checked' : '' %>>
                     <label class="form-check-label" for="isFirstGenerationStudent__No">No</label>
                 </div>
             </div>
@@ -284,6 +310,8 @@
                 name="gender"
                 required="true"
                 aria-labelledby="form-gender-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             >
                 <span class="d-none" id="form-gender-help">What is your gender?</span>
                 <option></option>
@@ -304,6 +332,8 @@
                 name="ethnicity"
                 required="true"
                 aria-labelledby="form-ethnicity-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             >
                 <span class="d-none" id="form-ethnicity-help">What is your ethnicity?</span>
                 <option></option>
@@ -321,6 +351,8 @@
                 required="true"
                 multiple="multiple"
                 aria-labelledby="form-race-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             >
                 <span class="d-none" id="form-race-help">What is your race?</span>
                 <option></option>
@@ -343,6 +375,8 @@
                 placeholder="Age"
                 required="true"
                 aria-labelledby="form-age-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             />
             <span class="d-none" id="form-age-help">How old are you?</span>
         </div>
@@ -364,6 +398,8 @@
                 placeholder="Number of Hackathons Attended"
                 required="true"
                 aria-labelledby="form-num-hacks-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             />
             <span class="d-none" id="form-num-hacks-help">How many hackathons have you attended?</span>
         </div>
@@ -377,6 +413,8 @@
                 value="<%= currentApplication.dataExperience || '' %>"
                 required="true"
                 aria-labelledby="form-ds-ml-experience-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             >
                 <span class="d-none" id="form-ds-ml-experience-help">What experience do you have in Data Science and Machine Learning?</span>
                 <option></option>
@@ -396,8 +434,9 @@
                 value="<%= currentApplication.techExperience || '' %>"
                 required="true"
                 multiple="multiple"
-
                 aria-labelledby="form-tech-experience-help"
+
+                <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>
             >
                 <span class="d-none" id="form-tech-experience-help">What technology experience do you have?</span>
                 <% for (const tech of technologies.results) { %>
@@ -407,7 +446,7 @@
         </div>
     </div>
     <div class="container p-3 my-3">
-        <button type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-success" <%= currentDate.getTime() > currentDeadline.getTime() ? "disabled" : "" %>>
             <% if(!applicationExists) {%>
                 Submit New Application
             <% } else { %>

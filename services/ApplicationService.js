@@ -64,6 +64,20 @@ const setStatusOfApplication = async (userId, newStatus) => {
     return updateApplicationForUser(userId, {status: newStatus});
 }
 
+const getCurrentDeadline = async () => {
+    const db = admin.database();
+    const ref = db.ref("deadline");
+
+    const result = await ref.once("value");
+    return result.val();
+}
+
+const setCurrentDeadline = async (newDeadline) => {
+    const db = admin.database();
+    const ref = db.ref("deadline");
+
+    ref.set(newDeadline);
+};
 /**
  * Get the first 10 applications
  */
@@ -102,5 +116,7 @@ module.exports = {
     createApplicationForUser,
     updateApplicationForUser,
     setStatusOfApplication,
+    getCurrentDeadline,
+    setCurrentDeadline,
     getApplicationsPreview
 }

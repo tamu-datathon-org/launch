@@ -12,6 +12,19 @@ router.get("/", async (req, res) => {
     return res.render("admin", { data });
 });
 
+
+router.get("/deadline", async (req, res) => {
+    const deadline = await applicationService.getCurrentDeadline();
+    return res.send(deadline);
+});
+
+router.post("/deadline", async (req, res) => {
+    const newDeadline = req.body.deadline;
+
+    await applicationService.setCurrentDeadline(newDeadline);
+    return res.send(newDeadline);
+});
+
 /**
  * Render a json preview of the first 10 applications
  * Route: /apply/preview
