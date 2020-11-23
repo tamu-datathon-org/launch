@@ -14,10 +14,50 @@
         $('#minor-select').select2({
             placeholder: 'Minors',
         });
+        $('#gen-select').select2({
+            placeholder: 'First Generation College Student',
+            minimumResultsForSearch: -1
+        });
+        $('#gender-select').select2({
+            placeholder: 'Gender',
+            minimumResultsForSearch: -1
+        });
+        $('#race-select').select2({
+            placeholder: 'Race',
+            minimumResultsForSearch: -1
+        });
+        $('#eth-select').select2({
+            placeholder: 'Ethnicity',
+            minimumResultsForSearch: -1
+        });
         $('#college-select').select2({
-            placeholder: 'Schools',
+            placeholder: 'School',
+        });
+        $('#class-select').select2({
+            placeholder: 'Classification',
+            minimumResultsForSearch: -1
+        });
+        $('#grad-select').select2({
+            placeholder: 'Graduation Date',
+            minimumResultsForSearch: -1
+        });
+        $('#dsExp-select').select2({
+            placeholder: 'Data Science Experieince',
+            minimumResultsForSearch: -1
+        });
+        $('#techExp-select').select2({
+            placeholder: 'Tech Experience'
         });
     });
+
+    function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
 </script>
 
 <script src="github_scripts.js"></script>
