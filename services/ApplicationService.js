@@ -11,6 +11,9 @@ const tech = require('../public/technologies.json');
 const getApplicationForUser = async (userId) => {
     const doc = await admin.firestore().collection("applications").doc(userId).get();
     const data = doc.data();
+    if (!data)
+        return data;
+
     if (data.school)
         data.schoolName = schools.results.find((item) => `${item.id}` == data.school).text || "-unknown-";
     if (data.majors)
