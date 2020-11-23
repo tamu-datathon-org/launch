@@ -99,11 +99,10 @@ const showGithubRepos = async (githubLink) => {
     });
 };
 
-$('tr').on('dblclick', function (event) {
+$('#applications-table').on('dbl-click-row.bs.table', function (e, arg1, arg2) {
     $('#addModal').modal('show');
 
-    const tableRow = $(event.currentTarget);
-    const userID = tableRow.attr('data-id');
+    const userID = arg2.attr('data-id');
 
     const dataUrl = `/apply/application/${userID}`;
     fetch(dataUrl)
@@ -163,4 +162,4 @@ $('tr').on('dblclick', function (event) {
         .catch((err) => {
             console.log(err);
         });
-});
+})
