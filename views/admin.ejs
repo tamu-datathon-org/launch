@@ -35,15 +35,16 @@
         </div>
     </div>
     <div class="container p-3 my-3 bg-light text-white rounded">
-        <table class="table table-hover">
+        <table id="applications-table" class="table table-hover" data-toggle="table">
             <thead>
                 <tr>
-                    <th scope="col">
+                    <!-- <th scope="col">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="selectAll">
                             <label class="custom-control-label" for="selectAll"></label>
                         </div>
-                    </th>
+                    </th> -->
+                    <th scope="col" data-field="state" data-checkbox="true"></th> 
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">School</th>
@@ -54,11 +55,11 @@
             </thead>
             <tbody>
                 <% data.forEach((app, i) => { %>
-                    <tr data-toggle="modal" data-id="<%= app.userAuthId || '' %>" data-auth data-target="#addModal">
+                    <tr data-toggle="modal" data-id="<%= app.userAuthId || '' %>" data-auth>
                         <td>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="select1">
-                                <label class="custom-control-label" for="select1"></label>
+                                <input type="checkbox" class="custom-control-input" id="select-<%= i %>">
+                                <label class="custom-control-label" for="select-<%= i %>"></label>
                             </div>
                         </td>
                         <td><%= app.firstName %> <%= app.lastName %></td>

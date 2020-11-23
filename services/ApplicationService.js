@@ -13,7 +13,7 @@ const getApplicationForUser = async (userId) => {
     const data = doc.data();
     if (!data)
         return data;
-        
+
     if (data.school)
         data.schoolName = schools.results.find((item) => `${item.id}` == data.school).text || "-unknown-";
     if (data.majors)

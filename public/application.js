@@ -99,72 +99,67 @@ const showGithubRepos = async (githubLink) => {
     });
 };
 
-$(async function() {
-    $('#addModal').on('show.bs.modal', (event) => {
-        $('#addModal').find(".modal-body").hide();
-        const tableRow = $(event.relatedTarget);
-        const userID = tableRow.attr('data-id');
-        
-        // get all data from tableRow & inject into the modal
-        // TODO: add hidden fields to table like github link
-        //       for rendering in the modal
-        const dataUrl = `/apply/application/${userID}`;
-        fetch(dataUrl)
-            .then(resp => resp.json()) 
-            .then(async (app) => {
-                if (!app.resumeId)
-                    $("#modal-resume-url").hide();
-                else
-                    $("#modal-resume-url").show();
-                if (!app.techExperience)
-                    $("#modal-tech-experience").hide();
-                else
-                    $("#modal-tech-experience").show();
-                if (!app.linkedInURL)
-                    $("#modal-linkedin-url").hide();
-                else
-                    $("#modal-linkedin-url").show();
-                if (!app.devpostURL)
-                    $("#modal-devpost-url").hide();
-                else
-                    $("#modal-devpost-url").show();
-                if (!app.kaggleURL)
-                    $("#modal-kaggle-url").hide();
-                else
-                    $("#modal-kaggle-url").show();
-                if (!app.githubURL)
-                    $("#modal-github-url").hide();
-                else
-                    $("#modal-github-url").show();
-                // set modal information
-                $("#appInfoModal").text(`${app.firstName} ${app.lastName}`);
-                $("#modal-school").text(app.schoolName)
-                $("#modal-tech-experience").text(app.techExperienceNames);
-                $("#modal-resume-url").attr("href", `/apply/resume/${app.resumeId}`);
-                $("#modal-linkedin-url").attr("href", app.linkedInURL || "#");
-                $("#modal-linkedin-url").text(app.linkedInURL || "-none-");
-                $("#modal-devpost-url").attr("href", app.devpostURL || "#");
-                $("#modal-devpost-url").text(app.devpostURL || "-none-");
-                $("#modal-kaggle-url").attr("href", app.kaggleURL || "#");
-                $("#modal-kaggle-url").text(app.kaggleURL || "-none-");
-                $("#modal-github-url").attr("href", app.githubURL || "#");
-                $("#modal-github-url").text(app.githubURL || "-none-");
+$('#applications-table').on('dbl-click-row.bs.table', function (e, arg1, arg2) {
+    $('#addModal').modal('show');
 
-                if (app.githubURL) {
-                    $('#github-stats-card').show();
-                    $('#github-languages-card').show();
-                    await showGithubRepos(app.githubURL);
-                } else {
-                    $("#github-repos-list").empty();
-                    $('#github-stats-card').hide();
-                    $('#github-languages-card').hide();
-                }
+    const userID = arg2.attr('data-id');
 
-                $('#addModal').find(".modal-body").show();
+    const dataUrl = `/apply/application/${userID}`;
+    fetch(dataUrl)
+        .then(resp => resp.json()) 
+        .then(async (app) => {
+            if (!app.resumeId)
+                $("#modal-resume-url").hide();
+            else
+                $("#modal-resume-url").show();
+            if (!app.techExperience)
+                $("#modal-tech-experience").hide();
+            else
+                $("#modal-tech-experience").show();
+            if (!app.linkedInURL)
+                $("#modal-linkedin-url").hide();
+            else
+                $("#modal-linkedin-url").show();
+            if (!app.devpostURL)
+                $("#modal-devpost-url").hide();
+            else
+                $("#modal-devpost-url").show();
+            if (!app.kaggleURL)
+                $("#modal-kaggle-url").hide();
+            else
+                $("#modal-kaggle-url").show();
+            if (!app.githubURL)
+                $("#modal-github-url").hide();
+            else
+                $("#modal-github-url").show();
+            // set modal information
+            $("#appInfoModal").text(`${app.firstName} ${app.lastName}`);
+            $("#modal-school").text(app.schoolName)
+            $("#modal-tech-experience").text(app.techExperienceNames);
+            $("#modal-resume-url").attr("href", `/apply/resume/${app.resumeId}`);
+            $("#modal-linkedin-url").attr("href", app.linkedInURL || "#");
+            $("#modal-linkedin-url").text(app.linkedInURL || "-none-");
+            $("#modal-devpost-url").attr("href", app.devpostURL || "#");
+            $("#modal-devpost-url").text(app.devpostURL || "-none-");
+            $("#modal-kaggle-url").attr("href", app.kaggleURL || "#");
+            $("#modal-kaggle-url").text(app.kaggleURL || "-none-");
+            $("#modal-github-url").attr("href", app.githubURL || "#");
+            $("#modal-github-url").text(app.githubURL || "-none-");
 
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    });
-});
+            if (app.githubURL) {
+                $('#github-stats-card').show();
+                $('#github-languages-card').show();
+                await showGithubRepos(app.githubURL);
+            } else {
+                $("#github-repos-list").empty();
+                $('#github-stats-card').hide();
+                $('#github-languages-card').hide();
+            }
+
+            $('#addModal').find(".modal-body").show();
+
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+})
