@@ -3,6 +3,7 @@ const router = express.Router();
 const applicationService = require('../services/ApplicationService');
 const majors = require('../public/college-majors.json');
 const colleges = require('../public/colleges.json');
+const technologies = require('../public/technologies.json')
 const ResumeService = require("../services/ResumeService");
 
 /**
@@ -19,6 +20,7 @@ router.get("/", async (req, res) => {
         applicationExists: currentApplication != undefined && currentApplication != null,
         majors,
         colleges,
+        technologies,
         justSubmitted: false,
         resumeWriteUrl: resumeWriteUrl || "",
         currentApplication: { 
@@ -71,6 +73,7 @@ router.post("/", async (req, res) => {
         justSubmitted: true,
         majors,
         colleges,
+        technologies,
         resumeWriteUrl: resumeWriteUrl || "",
         currentApplication: { 
             email: user.email,

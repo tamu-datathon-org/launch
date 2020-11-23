@@ -1,0 +1,71 @@
+{
+    "results": [
+      {
+        "id": 1,
+        "text": "Excel"
+      },
+      {
+        "id": 2,
+        "text": "Python"
+      },
+      {
+        "id": 3,
+        "text": "Tableau"
+      },
+      {
+        "id": 4,
+        "text": "TensorFlow"
+      },
+      {
+        "id": 5,
+        "text": "PyTorch"
+      },
+      {
+        "id": 6,
+        "text": "R"
+      },
+      {
+        "id": 7,
+        "text": "SQL"
+      },
+      {
+        "id": 8,
+        "text": "Keras"
+      },
+      {
+        "id": 9,
+        "text": "Pandas"
+      },
+      {
+        "id": 10,
+        "text": "NumPy"
+      },
+      {
+        "id": 11,
+        "text": "SQL"
+      },
+      {
+        "id": 12,
+        "text": "Scikit-learn"
+      },
+      {
+        "id": 13,
+        "text": "MATLAB"
+      },
+      {
+        "id": 14,
+        "text": "Full Stack"
+      },
+      {
+        "id": 15,
+        "text": "Dev Ops"
+      },
+      {
+        "id": 16,
+        "text": "Cloud Services (Google Cloud/AWS/Azure)"
+      }
+    ],
+    "pagination": {
+        "more": false
+    }
+}
