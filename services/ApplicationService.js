@@ -1,4 +1,7 @@
 const admin = require('firebase-admin');
+const schools = require('../public/colleges.json');
+const majors = require('../public/college-majors.json');
+const tech = require('../public/technologies.json');
 
 /**
  * Gets the appication for a specified user.
@@ -8,6 +11,23 @@ const admin = require('firebase-admin');
 const getApplicationForUser = async (userId) => {
     const doc = await admin.firestore().collection("applications").doc(userId).get();
     const data = doc.data();
+    if (!data)
+        return data;
+        
+    if (data.school)
+        data.schoolName = schools.results.find((item) => `${item.id}` == data.school).text || "-unknown-";
+    if (data.majors)
+        data.majorNames = data.majors.map(id => 
+            majors.results.find((majorItem) => `${majorItem.id}` == id).text || "-unknown-"
+        );
+    if (data.minors)
+        data.minorsNames = data.minors.map(id => 
+            majors.results.find((majorItem) => `${majorItem.id}` == id).text || "-unknown-"
+        );
+    if (data.techExperience && Array.isArray(data.techExperience))
+        data.techExperienceNames = data.techExperience.map(id => 
+            tech.results.find((techItem) => `${techItem.id}` == id).text || "-unknown-"
+        );
     return data;
 }
 
@@ -58,6 +78,38 @@ const setCurrentDeadline = async (newDeadline) => {
 
     ref.set(newDeadline);
 };
+/**
+ * Get the first 10 applications
+ */
+const getApplicationsPreview = async () => {
+    const db = admin.firestore();
+    const snapshot = await db.collection('applications').limit(10).get();
+
+    const result = [];
+
+    snapshot.forEach((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+            if (data.school)
+                data.schoolName = schools.results.find((item) => `${item.id}` == data.school).text || "-unknown-";
+            if (data.majors)
+                data.majorNames = data.majors.map(id => 
+                    majors.results.find((majorItem) => `${majorItem.id}` == id).text || "-unknown-"
+                );
+            if (data.minors)
+                data.minorsNames = data.minors.map(id => 
+                    majors.results.find((majorItem) => `${majorItem.id}` == id).text || "-unknown-"
+                );
+            if (data.techExperience && Array.isArray(data.techExperience))
+                data.techExperienceNames = data.techExperience.map(id => 
+                    tech.results.find((techItem) => `${techItem.id}` == id).text || "-unknown-"
+                );
+            result.push(data);
+        }
+    });
+
+    return result;
+}
 
 module.exports = {
     getApplicationForUser,
@@ -65,5 +117,6 @@ module.exports = {
     updateApplicationForUser,
     setStatusOfApplication,
     getCurrentDeadline,
-    setCurrentDeadline
+    setCurrentDeadline,
+    getApplicationsPreview
 }
