@@ -64,4 +64,10 @@ router.post("/", async (req, res) => {
     });
 });
 
+router.get("/app/:id", async(req, res) => {
+    const userId = req.params.id;
+    const lastApp =  await applicationService.getApplicationForUser(userId);
+    res.send(lastApp);
+});
+
 module.exports = router;

@@ -56,7 +56,7 @@ const getApplicationsPreview = async () => {
     snapshot.forEach((doc) => {
         if (doc.exists) {
             const data = doc.data();
-            delete data["userAuthId"]
+            // userAuthId
             result.push(data);
         }
     });

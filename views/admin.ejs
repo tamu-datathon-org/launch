@@ -53,7 +53,7 @@
             </thead>
             <tbody>
                 <% data.forEach((app, i) => { %>
-                    <tr data-toggle="modal" data-id="<%= i + 1 %>" data-target="#addModal">
+                    <tr data-toggle="modal" data-id="<%= app.userAuthId || '' %>" data-auth data-target="#addModal">
                         <td>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="select1">
@@ -72,23 +72,23 @@
         </table>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="appInfoModal"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMU Datathon</h5>
+                    <h5 class="modal-title" id="appInfoModal">TAMU Datathon</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <p><b>School:</b></p>
-                    <p>Texas A&M</p>
+                    <p id="modal-school">Texas A&M</p>
                     <p><b>Resume:</b></p>
                     <p><a href="tamudatathon.com">Link to Resume</a></p>
                     <p><b>Computed Skill:</b></p>
-                    <p>Advanced</p>
+                    <p id="modal-tech-experience">Advanced</p>
                     <p><b>Most Used Languages in GitHub Projects:</b></p>
                     <p>Python</p>
                     <p><b>Pinned Repositories:</b></p>
@@ -100,11 +100,13 @@
                     <p><b>Past TAMU Datathon Activity:</b></p>
                     <p>Attended TD 2020, Won City Search Tool</p>
                     <p><b>LinkedIn URL:</b></p>
-                    <p><a href="linkedin.com/company/tamudatathon">Link to LinkedIn</a></p>
+                    <p><a id="modal-linkedin-url" href="linkedin.com/company/tamudatathon">Link to LinkedIn</a></p>
                     <p><b>Kaggle URL:</b></p>
-                    <p><a href="tamudatathon.com">Link to Kaggle</a></p>
+                    <p><a id="modal-kaggle-url" href="tamudatathon.com">Link to Kaggle</a></p>
+                    <p><b>Devpost URL:</b></p>
+                    <p><a id="modal-devpost-url" href="tamudatathon.com">Link to Devpost</a></p>
                     <p><b>GitHub URL:</b></p>
-                    <p><a href="https://github.com/tamu-datathon-org">Link to GitHub</a></p>
+                    <p><a id="modal-github-url" href="https://github.com/tamu-datathon-org">Link to GitHub</a></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -119,13 +121,28 @@
         $(function() {
             $('#addModal').on('show.bs.modal', (event) => {
                 const tableRow = $(event.relatedTarget);
-                const rowIndex = tableRow.attr('data-id');
+                const userID = tableRow.attr('data-id');
                 
                 // get all data from tableRow & inject into the modal
                 // TODO: add hidden fields to table like github link
                 //       for rendering in the modal
-
-                console.log("You clicked on index:", rowIndex);
+                const dataUrl = `/apply/app/${userID}`;
+                fetch(dataUrl)
+                    .then(resp => resp.json()) 
+                    .then((app) => {
+                        // set modal information
+                        $("#appInfoModal").text(`${app.firstName} ${app.lastName}`);
+                        $("#modal-school").text(app.school)
+                        $("#modal-tech-experience").text(app.techExperience);
+                        $("#modal-linkedin-url").attr("href", app.linkedInURL || "#");
+                        $("#modal-devpost-url").attr("href", app.devpostURL || "#");
+                        $("#modal-kaggle-url").attr("href", app.kaggleURL || "#");
+                        $("#modal-github-url").attr("href", app.github || "#");
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                console.log("You clicked on index:", userID);
             });
         });
     </script>
