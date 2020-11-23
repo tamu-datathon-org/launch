@@ -137,14 +137,19 @@
             />
             <span class="d-none" id="personal-page-help">Enter your personal webpage here</span>
         </div>
-        <label for="resume">Resume</label>
-        <input
-            type="file"
-            class="form-control"
-            name="resume"
-            accept="application/pdf"
-            aria-labelledby="resume-help"
-        />
+        <div class="form-group">
+            <label for="resume">Resume</label>
+            <input
+                type="text"
+                id="resumeControl"
+                hidden name="resumeId"
+                value="<%= currentApplication.resumeId || '' %>"
+                write-url="<%= resumeWriteUrl || '' %>"
+                auth-id="<%= currentApplication.userAuthId || '' %>"
+                aria-labelledby="upload-resume-help"
+            />
+            <span class="d-none" id="upload-resume-help">Upload your resume here</span>
+        </div>
     </div>
     <div class="container">
         <hr/>
@@ -158,90 +163,111 @@
                 id="college-select"
                 required="true"
                 value="<%= currentApplication.school || '' %>"
-                name="colleges"
-            >
+                name="school"
+                required="true"
+                aria-labelledby="form-school-help"
+                >
+                <span class="d-none" id="form-school-help">What school do you attend?</span>
             <option></option>
             <% for (const college of colleges.results) { %>
-                <option value="<%= college.id %>"><%= college.text %></option>
+                <option value="<%= college.id %>"  <%= currentApplication.school == (''+college.id) ? 'selected' : '' %> ><%= college.text %></option>
             <% } %>    
             </select>
         </div>
         <div class="form-group">
             <label for="classification">Classification</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
-                id="classification"
-                placeholder="Classification"
+                id="class-select"
                 value="<%= currentApplication.classification || '' %>"
                 required="true"
                 name="classification"
                 aria-labelledby="form-classification-help"
-            />
-            <span class="d-none" id="form-classification-help"
-                >What is your classification?</span
             >
+                <span class="d-none" id="form-classification-help">What is your classification?</span>
+
+                <option></option>
+                <option <%=currentApplication.classification == ('Freshman') ? 'selected' : '' %> >Freshman</option>
+                <option <%=currentApplication.classification == ('Sophomore') ? 'selected' : '' %> >Sophomore</option>
+                <option <%=currentApplication.classification == ('Junior') ? 'selected' : '' %> >Junior</option>
+                <option <%=currentApplication.classification == ('Senior') ? 'selected' : '' %> >Senior</option>
+                <option <%=currentApplication.classification == ('Graduate Student') ? 'selected' : '' %> >Graduate Student</option>
+            </select>
+            
         </div>
         <div class="form-group">
             <label for="graduation">Graduation Date</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
-                id="graduation"
+                id="grad-select"
                 placeholder="Graduation Date"
                 value="<%= currentApplication.graduationDate || '' %>"
                 name="graduationDate"
                 aria-labelledby="form-graduation-help"
-            />
-            <span class="d-none" id="form-graduation-help"
-                >When will you graduate?</span
             >
+                <span class="d-none" id="form-graduation-help">When will you graduate?</span>
+                <option></option>
+                <option <%=currentApplication.graduationDate == ('Spring 2020') ? 'selected' : '' %> >Spring 2020</option>
+                <option <%=currentApplication.graduationDate == ('Fall 2021') ? 'selected' : '' %> >Fall 2021</option>
+                <option <%=currentApplication.graduationDate == ('Spring 2021') ? 'selected' : '' %> >Spring 2021</option>
+                <option <%=currentApplication.graduationDate == ('Fall 2022') ? 'selected' : '' %> >Fall 2022</option>
+                <option <%=currentApplication.graduationDate == ('Spring 2022') ? 'selected' : '' %> >Spring 2022</option>
+                <option <%=currentApplication.graduationDate == ('Fall 2023') ? 'selected' : '' %> >Fall 2023</option>
+                <option <%=currentApplication.graduationDate == ('Spring 2023') ? 'selected' : '' %> >Spring 2023</option>
+                <option <%=currentApplication.graduationDate == ('Fall 2024') ? 'selected' : '' %> >Fall 2024</option>
+                <option <%=currentApplication.graduationDate == ('Spring 2024') ? 'selected' : '' %> >Spring 2024</option>
+                <option <%=currentApplication.graduationDate == ('Fall 2025') ? 'selected' : '' %> >Fall 2025</option>
+                <option <%=currentApplication.graduationDate == ('Spring 2025') ? 'selected' : '' %> >Spring 2025</option>
+            </select>
+
         </div>
         <div class="form-group">
             <label for="majors">Majors</label>
             <select
                 class="form-control"
                 id="major-select"
-                required="true"
                 value="<%= currentApplication.majors || '' %>"
                 multiple="multiple"
                 name="majors"
+                aria-labelledby="major-select-help"
             >
-            <% for (const major of majors.results) { %>
-                <option value="<%= major.id %>"><%= major.text %></option>
-            <% } %>    
+                <span class="d-none" id="major-select-help">What are you majoring in?</span>
+                <% for (const major of majors.results) { %>
+                    <option value="<%= major.id %>" <%= currentApplication.majors && currentApplication.majors.includes('' + major.id) ? 'selected' : '' %> ><%= major.text %></option>
+                <% } %>    
             </select>
         </div>
         <div class="form-group">
             <label for="minors">Minors</label>
             <select
                 class="form-control"
-                id="minor-select"
-                required="true"
+                id="minor-select"                
                 value="<%= currentApplication.minors || '' %>"
                 name="minors"
                 multiple="multiple"
+                aria-labelledby="minor-select-help"
             >
-            <% for (const major of majors.results) { %>
-                <option value="<%= major.id %>"><%= major.text %></option>
-            <% } %>   
+                <span class="d-none" id="minor-select-help">What are you minoring in?</span>
+                <% for (const minor of majors.results) { %>
+                    <option value="<%= minor.id %>" <%= currentApplication.minors && currentApplication.minors.includes('' + minor.id) ? 'selected' : '' %> ><%= minor.text %></option>
+                <% } %>   
             </select>
         </div>
 
         <div class="form-group">
             <label for="firstGen">Are you a First Generation Student?</label>
             <div class="radio">
-                <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                  Yes
-                </label>
-                <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                    No
-                  </label>
-              </div>
-
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__Yes" required value="true" <%= currentApplication.isFirstGenerationStudent == 'true' ? 'checked' : '' %>>
+                    <label class="form-check-label" for="isFirstGenerationStudent__Yes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isFirstGenerationStudent" id="isFirstGenerationStudent__No" required value="false" <%= currentApplication.isFirstGenerationStudent == 'false' ? 'checked' : '' %>>
+                    <label class="form-check-label" for="isFirstGenerationStudent__No">No</label>
+                </div>
+            </div>
         </div>
+    </div>
     </div>
     <div class="container">
         <hr/>
@@ -250,34 +276,65 @@
         <h3>Demographics</h3>
         <div class="form-group">
             <label for="gender">Gender</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
-                id="gender"
-                placeholder="Gender"
-                required="true"
+                id="gender-select"
                 value="<%= currentApplication.gender || '' %>"
                 name="gender"
+                required="true"
                 aria-labelledby="form-gender-help"
-            />
-            <span class="d-none" id="form-gender-help">What is your gender?</span>
+            >
+                <span class="d-none" id="form-gender-help">What is your gender?</span>
+                <option></option>
+                <option <%=currentApplication.gender == ('Male') ? 'selected' : '' %> >Male</option>
+                <option <%=currentApplication.gender == ('Female') ? 'selected' : '' %> >Female</option>
+                <option <%=currentApplication.gender == ('Non-binary') ? 'selected' : '' %> >Non-binary</option>
+                <option <%=currentApplication.gender == ('Intersex') ? 'selected' : '' %> >Intersex</option>
+                <option <%=currentApplication.gender == ('Prefer to Not Answer') ? 'selected' : '' %> >Prefer to Not Answer</option>
+            </select>
+            
+        </div>
+        <div class="form-group">
+            <label for="race">Ethnicity</label>
+            <select 
+                class="form-control"
+                id="eth-select"
+                value="<%= currentApplication.ethnicity || '' %>"
+                name="ethnicity"
+                required="true"
+                aria-labelledby="form-ethnicity-help"
+            >
+                <span class="d-none" id="form-ethnicity-help">What is your ethnicity?</span>
+                <option></option>
+                <option <%=currentApplication.ethnicity == ('Hispanic or Latino') ? 'selected' : '' %> >Hispanic or Latino</option>
+                <option <%=currentApplication.ethnicity == ('Not Hispanic or Latino') ? 'selected' : '' %> >Not Hispanic or Latino</option>
+              </select>
         </div>
         <div class="form-group">
             <label for="race">Race</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
-                id="race"
+                id="race-select"
                 value="<%= currentApplication.race || '' %>"
                 name="race"
-                placeholder="Race"
                 required="true"
-            />
+                multiple="multiple"
+                aria-labelledby="form-race-help"
+            >
+                <span class="d-none" id="form-race-help">What is your race?</span>
+                <option></option>
+                <option <%=currentApplication.race.includes('American Indian or Alaska Native') ? 'selected' : '' %> >American Indian or Alaska Native</option>
+                <option <%=currentApplication.race.includes('Asian') ? 'selected' : '' %> >Asian</option>
+                <option <%=currentApplication.race.includes('Black or African American') ? 'selected' : '' %> >Black or African American</option>
+                <option <%=currentApplication.race.includes('Native Hawaiian or Other Pacific Islander') ? 'selected' : '' %> >Native Hawaiian or Other Pacific Islander</option>
+                <option <%=currentApplication.race.includes('White') ? 'selected' : '' %> >White</option>
+              </select>
         </div>
         <div class="form-group">
             <label for="age">Age</label>
             <input
                 type="number"
+                onkeypress="return isNumberKey(event)"
                 class="form-control"
                 id="age"
                 name="age"
@@ -298,6 +355,7 @@
             <label for="numHack">Number of Hackathons Attended</label>
             <input
                 type="number"
+                onkeypress="return isNumberKey(event)"
                 class="form-control"
                 id="numHack"
                 name="numHackAttended"
@@ -306,42 +364,45 @@
                 required="true"
                 aria-labelledby="form-num-hacks-help"
             />
-            <span class="d-none" id="form-num-hacks-help"
-                >How many hackathons have you attended?</span
-            >
+            <span class="d-none" id="form-num-hacks-help">How many hackathons have you attended?</span>
         </div>
         <div class="form-group">
             <label for="dsExp">DS/ML Experience</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
-                id="dsExp"
+                id="dsExp-select"
                 name="dataExperience"
                 placeholder="DS/ML Experience"
                 value="<%= currentApplication.dataExperience || '' %>"
                 required="true"
                 aria-labelledby="form-ds-ml-experience-help"
-            />
-            <span class="d-none" id="form-ds-ml-experience-help"
-                >What experience do you have in Data Science and Machine
-                Learning?</span
             >
+                <span class="d-none" id="form-ds-ml-experience-help">What experience do you have in Data Science and Machine Learning?</span>
+                <option></option>
+                <option value="0" <%=currentApplication.dataExperience == ('0') ? 'selected' : '' %> >None</option>
+                <option value="1" <%=currentApplication.dataExperience == ('1') ? 'selected' : '' %> >Dabbled here and there</option>
+                <option value="2" <%=currentApplication.dataExperience == ('2') ? 'selected' : '' %> >Some side-projects and/or classes</option>
+                <option value="3" <%=currentApplication.dataExperience == ('3') ? 'selected' : '' %> >Years of industry experience</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="techExp">Tech Experience</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
-                id="techExp"
+                id="techExp-select"
                 name="techExperience"
                 placeholder="Tech Experience"
                 value="<%= currentApplication.techExperience || '' %>"
                 required="true"
+                multiple="multiple"
+
                 aria-labelledby="form-tech-experience-help"
-            />
-            <span class="d-none" id="form-tech-experience-help"
-                >What technology experience do you have?</span
             >
+                <span class="d-none" id="form-tech-experience-help">What technology experience do you have?</span>
+                <% for (const tech of technologies.results) { %>
+                    <option value="<%= tech.id %>" <%= currentApplication.techExperience && currentApplication.techExperience.includes('' + tech.id) ? 'selected' : '' %> ><%= tech.text %></option>
+                <% } %> 
+            </select>
         </div>
     </div>
     <div class="container p-3 my-3">
