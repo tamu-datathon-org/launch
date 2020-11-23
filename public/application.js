@@ -1,27 +1,3 @@
-// when github input loses focus
-$("#gitHub").focusout(async () => {
-    let inputPath = $("#gitHub").val().toLowerCase();
-    const GithubURL = new URL(inputPath);
-
-    if (inputPath.includes("github.com") && GithubURL) {
-        // if the input for github link is valid
-
-        const pathArray = GithubURL.pathname.split('/').filter(e => e.length > 0);
-        if (pathArray.length == 0) {
-            throw new Error(`Invalid path submitted to form: ${inputPath}`);
-        }
-        const username = pathArray[0];
-        
-        const StatsResult         = getStatsCardData(username);
-        const MainLanguagesResult = getTopLanguagesData(username);
-
-        const data = await Promise.all([StatsResult, MainLanguagesResult]);
-
-        console.log(data[0]);
-        console.log(data[1]);
-    }
-});
-
 // ==============================
 // code originally from admin.ejs
 // ==============================
