@@ -99,9 +99,13 @@ const showGithubRepos = async (githubLink) => {
     });
 };
 
+$('tr').on('dblclick', function () {
+    $('#addModal').modal('show');
+});
+
 $(async function() {
     $('#addModal').on('show.bs.modal', (event) => {
-        $('#addModal').find(".modal-body").hide();
+        // $('#addModal').find(".modal-body").hide();
         const tableRow = $(event.relatedTarget);
         const userID = tableRow.attr('data-id');
         
