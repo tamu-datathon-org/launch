@@ -122,3 +122,5 @@ service-account-file.json
 # env
 .env
 **/.env
+
+*.DS_Store

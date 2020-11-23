@@ -103,6 +103,17 @@
                     <p><a id="modal-devpost-url" href="tamudatathon.com">Link to Devpost</a></p>
                     <p><b>GitHub URL:</b></p>
                     <p><a id="modal-github-url" href="https://github.com/tamu-datathon-org">Link to GitHub</a></p>
+                    <p><b>GitHub Repositories (top five):</b></p>
+                    <p>
+                        <ul id="github-repos-list"></ul>
+                    </p>
+                    <p>
+                        <img id="github-languages-card" src="#" width="100%" />
+                    </p>
+                    <p>
+                        <img id="github-stats-card" src="#" width="100%" />
+                    </p>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -112,37 +123,6 @@
     </div>
 
     <%- include ("./partials/scripts") %>
-
-    <script>
-        $(function() {
-            $('#addModal').on('show.bs.modal', (event) => {
-                const tableRow = $(event.relatedTarget);
-                const userID = tableRow.attr('data-id');
-                
-                // get all data from tableRow & inject into the modal
-                // TODO: add hidden fields to table like github link
-                //       for rendering in the modal
-                const dataUrl = `/apply/app/${userID}`;
-                fetch(dataUrl)
-                    .then(resp => resp.json()) 
-                    .then((app) => {
-                        // set modal information
-                        $("#appInfoModal").text(`${app.firstName} ${app.lastName}`);
-                        $("#modal-school").text(app.school)
-                        $("#modal-tech-experience").text(app.techExperience);
-                        $("#modal-resume-url").attr("href", `/apply/resume/${app.resumeId}`);
-                        $("#modal-linkedin-url").attr("href", app.linkedInURL || "#");
-                        $("#modal-devpost-url").attr("href", app.devpostURL || "#");
-                        $("#modal-kaggle-url").attr("href", app.kaggleURL || "#");
-                        $("#modal-github-url").attr("href", app.github || "#");
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-                console.log("You clicked on index:", userID);
-            });
-        });
-    </script>
 
 </body>
 
