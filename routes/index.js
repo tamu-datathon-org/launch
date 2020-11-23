@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const applicationService = require('../services/ApplicationService');
 const majors = require('../public/college-majors.json');
 const colleges = require('../public/colleges.json');
-const technologies = require('../public/technologies.json')
+const technologies = require('../public/technologies.json');
 const ResumeService = require("../services/ResumeService");
+const applicationService = require('../services/ApplicationService');
 
 /**
  * Serve home page

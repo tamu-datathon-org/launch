@@ -44,9 +44,30 @@ const setStatusOfApplication = async (userId, newStatus) => {
     return updateApplicationForUser(userId, {status: newStatus});
 }
 
+/**
+ * Get the first 10 applications
+ */
+const getApplicationsPreview = async () => {
+    const db = admin.firestore();
+    const snapshot = await db.collection('applications').limit(10).get();
+
+    const result = [];
+
+    snapshot.forEach((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+            // userAuthId
+            result.push(data);
+        }
+    });
+
+    return result;
+}
+
 module.exports = {
     getApplicationForUser,
     createApplicationForUser,
     updateApplicationForUser,
-    setStatusOfApplication
+    setStatusOfApplication,
+    getApplicationsPreview
 }

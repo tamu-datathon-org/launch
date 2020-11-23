@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { StatusCodes } = require("http-status-codes");
 const HelloService = require("../../services/HelloService");
+const GithubService = require("../../services/GithubService");
 
 /**
  * Redirect to "hello" page when someone fills out form on home page
@@ -43,6 +44,26 @@ router.get("/:name", (req, res) => {
         // send error response to browser
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(e.message);
     }
+});
+
+/**
+ * Return data about <username>
+ */
+router.get("/github/:username", async (req, res) => {
+    const username_url = req.params.username;
+    const userData = await GithubService.getUserData(username_url);
+
+    res.json(userData);
+});
+
+/**
+ * Return data about <username>'s public repositories
+ */
+router.get("/github/:username/repos", async (req, res) => {
+    const username_url = req.params.username;
+    const userRepos = await GithubService.getUserRepos(username_url);
+
+    res.json(userRepos);
 });
 
 module.exports = router;

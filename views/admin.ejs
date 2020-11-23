@@ -28,14 +28,13 @@
                         <a class="dropdown-item" href="#">Export Data</a>
                         <a class="dropdown-item" href="#">View Details</a>
                         <a class="dropdown-item" href="#">Star Applicant(s)</a>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="container p-3 my-3 bg-light text-white rounded">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">
@@ -53,57 +52,69 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="select1">
-                            <label class="custom-control-label" for="select1"></label>
-                        </div>
-                    </td>
-                    <td>TAMU Datathon</td>
-                    <td>connect@tamudatathon.com</td>
-                    <td>Texas A&M</td>
-                    <td>Sophomore</td>
-                    <td>Advanced</td>
-                    <td>Accepted</td>
-                </tr>
+                <% data.forEach((app, i) => { %>
+                    <tr data-toggle="modal" data-id="<%= app.userAuthId || '' %>" data-auth data-target="#addModal">
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="select1">
+                                <label class="custom-control-label" for="select1"></label>
+                            </div>
+                        </td>
+                        <td><%= app.firstName %> <%= app.lastName %></td>
+                        <td><%= app.email %></td>
+                        <td><%= app.school %></td>
+                        <td><%= app.classification %></td>
+                        <td><%= app.dataExperience %></td>
+                        <td><%= app.status %></td>
+                    </tr>
+                <% }); %>
             </tbody>
         </table>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="appInfoModal"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMU Datathon</h5>
+                    <h5 class="modal-title" id="appInfoModal">TAMU Datathon</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <p><b>School:</b></p>
-                    <p>Texas A&M</p>
+                    <p id="modal-school">Texas A&M</p>
+                    <hr/>
                     <p><b>Resume:</b></p>
-                    <p><a href="tamudatathon.com">Link to Resume</a></p>
-                    <p><b>Computed Skill:</b></p>
-                    <p>Advanced</p>
-                    <p><b>Most Used Languages in GitHub Projects:</b></p>
-                    <p>Python</p>
-                    <p><b>Pinned Repositories:</b></p>
-                    <p><a href="https://github.com/tamu-datathon-org">tamu-datathon-org</a></p>
-                    <p><b>Work Experience from LinkedIn:</b></p>
-                    <p>TAMU Datathon 2019, TAMU Datathon 2020</p>
-                    <p><b>Kaggle Competitions Attended:</b></p>
-                    <p>foo, bar</p>
-                    <p><b>Past TAMU Datathon Activity:</b></p>
-                    <p>Attended TD 2020, Won City Search Tool</p>
+                    <p><a id="modal-resume-url" href="tamudatathon.com">Link to Resume</a></p>
+                    <hr/>
+                    <p><b>Tech Skills:</b></p>
+                    <p id="modal-tech-experience">Advanced</p>
+                    <hr/>
                     <p><b>LinkedIn URL:</b></p>
-                    <p><a href="linkedin.com/company/tamudatathon">Link to LinkedIn</a></p>
+                    <p><a id="modal-linkedin-url" href="linkedin.com/company/tamudatathon">Link to LinkedIn</a></p>
+                    <hr/>
                     <p><b>Kaggle URL:</b></p>
-                    <p><a href="tamudatathon.com">Link to Kaggle</a></p>
+                    <p><a id="modal-kaggle-url" href="tamudatathon.com">Link to Kaggle</a></p>
+                    <hr/>
+                    <p><b>Devpost URL:</b></p>
+                    <p><a id="modal-devpost-url" href="tamudatathon.com">Link to Devpost</a></p>
+                    <hr/>
                     <p><b>GitHub URL:</b></p>
-                    <p><a href="https://github.com/tamu-datathon-org">Link to GitHub</a></p>
+                    <p><a id="modal-github-url" href="https://github.com/tamu-datathon-org">Link to GitHub</a></p>
+                    <hr/>
+                    <p><b>GitHub Repositories (top five):</b></p>
+                    <p>
+                        <ul id="github-repos-list"></ul>
+                    </p>
+                    <p>
+                        <img id="github-languages-card" src="#" height="100%" />
+                    </p>
+                    <p>
+                        <img id="github-stats-card" src="#" width="100%" />
+                    </p>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -112,14 +123,8 @@
         </div>
     </div>
 
-
-
     <%- include ("./partials/scripts") %>
-    <script>
-        $('tr').on('dblclick', function () {
-            $('#addModal').modal('show');
-        });
-    </script>
+
 </body>
 
 </html>
