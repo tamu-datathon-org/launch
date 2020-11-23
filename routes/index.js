@@ -13,6 +13,7 @@ const applicationService = require('../services/ApplicationService');
 router.get("/", async (req, res) => {
     const user = req.user;
     const currentApplication = await applicationService.getApplicationForUser(user.authId);
+    const currentDeadline = new Date(await applicationService.getCurrentDeadline());
 
     const resumeWriteUrl = await ResumeService.getSignedURLForResume(user.authId, "putObject");
 
@@ -23,6 +24,7 @@ router.get("/", async (req, res) => {
         technologies,
         justSubmitted: false,
         resumeWriteUrl: resumeWriteUrl || "",
+        currentDeadline,
         currentApplication: { 
             email: user.email,
             firstName: user.firstName,
@@ -70,6 +72,8 @@ router.post("/", async (req, res) => {
     
     const resumeWriteUrl = await ResumeService.getSignedURLForResume(user.authId, "putObject");
 
+    const currentDeadline = new Date(await applicationService.getCurrentDeadline());
+
     // render page
     return res.render("index", {
         applicationExists: currentApplication != undefined && currentApplication != null,
@@ -78,6 +82,7 @@ router.post("/", async (req, res) => {
         colleges,
         technologies,
         resumeWriteUrl: resumeWriteUrl || "",
+        currentDeadline,
         currentApplication: { 
             email: user.email,
             firstName: user.firstName,
