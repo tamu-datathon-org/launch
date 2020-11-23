@@ -1,4 +1,7 @@
 const admin = require('firebase-admin');
+const schools = require('../public/colleges.json');
+const majors = require('../public/college-majors.json');
+const tech = require('../public/technologies.json');
 
 /**
  * Gets the appication for a specified user.
@@ -8,6 +11,20 @@ const admin = require('firebase-admin');
 const getApplicationForUser = async (userId) => {
     const doc = await admin.firestore().collection("applications").doc(userId).get();
     const data = doc.data();
+    if (data.school)
+        data.schoolName = schools.results.find((item) => `${item.id}` == data.school).text || "-unknown-";
+    if (data.majors)
+        data.majorNames = data.majors.map(id => 
+            majors.results.find((majorItem) => `${majorItem.id}` == id).text || "-unknown-"
+        );
+    if (data.minors)
+        data.minorsNames = data.minors.map(id => 
+            majors.results.find((majorItem) => `${majorItem.id}` == id).text || "-unknown-"
+        );
+    if (data.techExperience && Array.isArray(data.techExperience))
+        data.techExperienceNames = data.techExperience.map(id => 
+            tech.results.find((techItem) => `${techItem.id}` == id).text || "-unknown-"
+        );
     return data;
 }
 
@@ -56,7 +73,20 @@ const getApplicationsPreview = async () => {
     snapshot.forEach((doc) => {
         if (doc.exists) {
             const data = doc.data();
-            // userAuthId
+            if (data.school)
+                data.schoolName = schools.results.find((item) => `${item.id}` == data.school).text || "-unknown-";
+            if (data.majors)
+                data.majorNames = data.majors.map(id => 
+                    majors.results.find((majorItem) => `${majorItem.id}` == id).text || "-unknown-"
+                );
+            if (data.minors)
+                data.minorsNames = data.minors.map(id => 
+                    majors.results.find((majorItem) => `${majorItem.id}` == id).text || "-unknown-"
+                );
+            if (data.techExperience && Array.isArray(data.techExperience))
+                data.techExperienceNames = data.techExperience.map(id => 
+                    tech.results.find((techItem) => `${techItem.id}` == id).text || "-unknown-"
+                );
             result.push(data);
         }
     });

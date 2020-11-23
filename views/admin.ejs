@@ -47,7 +47,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">School</th>
                     <th scope="col">Classification</th>
-                    <th scope="col">Computed Skill</th>
+                    <th scope="col">DS/ML Skill Level</th>
                     <th scope="col">Status</th>
                 </tr>
             </thead>
@@ -62,7 +62,7 @@
                         </td>
                         <td><%= app.firstName %> <%= app.lastName %></td>
                         <td><%= app.email %></td>
-                        <td><%= app.school %></td>
+                        <td><%= app.schoolName %></td>
                         <td><%= app.classification %></td>
                         <td><%= app.dataExperience %></td>
                         <td><%= app.status %></td>
@@ -108,6 +108,7 @@
                     <p>
                         <ul id="github-repos-list"></ul>
                     </p>
+                    <hr/>
                     <p>
                         <img id="github-languages-card" src="#" height="100%" />
                     </p>

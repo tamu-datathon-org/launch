@@ -87,7 +87,7 @@ const showGithubRepos = async (githubLink) => {
     const data = await resp.json();
 
     // only get first five repos
-    const arr = data.slice(0,5);
+    const arr = Array.isArray(data) ? data.slice(0,5) : [];
 
     $("#github-repos-list").empty();
     arr.forEach((elem) => {
@@ -138,8 +138,8 @@ $(async function() {
                     $("#modal-github-url").show();
                 // set modal information
                 $("#appInfoModal").text(`${app.firstName} ${app.lastName}`);
-                $("#modal-school").text(app.school)
-                $("#modal-tech-experience").text(app.techExperience);
+                $("#modal-school").text(app.schoolName)
+                $("#modal-tech-experience").text(app.techExperienceNames);
                 $("#modal-resume-url").attr("href", `/apply/resume/${app.resumeId}`);
                 $("#modal-linkedin-url").attr("href", app.linkedInURL || "#");
                 $("#modal-linkedin-url").text(app.linkedInURL || "-none-");
