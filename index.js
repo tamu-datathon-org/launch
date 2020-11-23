@@ -28,6 +28,7 @@ const rootRoutes = require("./routes/index");
 const helloRoutes = require("./routes/hello/index");
 const resumeRoutes = require("./routes/resume/index");
 const adminRoutes = require("./routes/admin/index");
+const appRoutes = require("./routes/application/index");
 
 /**
  * Create Express server.
@@ -48,6 +49,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(`${basePath}/hello`, checkIfLoggedIn(), helloRoutes);
 app.use(`${basePath}/resume`, checkIfLoggedIn(), resumeRoutes);
 app.use(`${basePath}/admin`, checkIfLoggedIn(), adminRoutes);
+app.use(`${basePath}/application`, checkIfLoggedIn(), appRoutes);
 app.use(`${basePath}/`, checkIfLoggedIn(), rootRoutes);
 app.use(`${basePath}`,express.static("public"));
 
